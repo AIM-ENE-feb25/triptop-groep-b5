@@ -1,0 +1,38 @@
+@startuml
+' convert it with additional command line argument -DRELATIVE_INCLUDE="./.." to use locally
+!if %variable_exists("RELATIVE_INCLUDE")
+!include %get_variable_value("RELATIVE_INCLUDE")/C4_Container.puml
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!else
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!endif
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Context diagram voor het TripTop systeem
+
+Person(reiziger, Reiziger, "Een persoon die een reis samen wilt stellen")
+Person(reisagent, Reisagent, "Helpt reiziger bij het samenstellen van een reis")
+
+
+System_Boundary(triptop, TripTop, "Het TripTop systeem"){
+    Container(frontend, "Frontend", "Webapplicatie voor het samenstellen van een reis")
+    Container(backend, "Backend", "Backend voor het samenstellen van een reis")
+    ContainerDb(database, "Database", "Database voor het opslaan van reisgegevens")
+}
+
+System_Ext(identityprovider, "Identity Provider", "Wiremock Identity Provider api service")
+System_Ext(overnachting, "Overnachting Service", "Booking.com api service")
+
+reiziger --> (frontend) : boekt reis via
+reisagent --> (frontend) : helpt reiziger bij boeken reis via
+frontend --> backend : stuurt reisgegevens naar
+database <- backend : slaat reisgegevens op in
+backend --> identityprovider : authenticatie via
+frontend -> overnachting : zoekt overnachtingen via
+
+@enduml

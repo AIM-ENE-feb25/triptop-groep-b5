@@ -1,0 +1,46 @@
+@startuml
+' convert it with additional command line argument -DRELATIVE_INCLUDE="./.." to use locally
+!if %variable_exists("RELATIVE_INCLUDE")
+!include %get_variable_value("RELATIVE_INCLUDE")/C4_Container.puml
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!else
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!endif
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Context diagram for the ANS Application
+
+Person(student, Student, "A student who uses the system to make exams")
+Person(teacher, Teacher, "Helpt reiziger bij het samenstellen van een reis")
+
+
+System_Boundary(ans, ANS, "The ANS application"){
+    Container(answeb, "ANS Web Application", "The web application for ANS", "Java, Spring Boot")
+    ContainerDb(ansdb, "ANS Database", "Stores all ANS data", "PostgreSQL")
+    Container(ansapp, "ANS single page application", "The single page application for ANS", "React")
+    Container(ansbackend, "ANS Backend", "The backend for ANS", "Java, Spring Boot")
+    Container(ansapi, "ANS API", "The API for ANS", "Java, Spring Boot")
+    Container(ansdash, "ANS Dashboard", "The dashboard for ANS", "React")
+}
+
+
+System_Ext(osiris, "Osiris", "Contains registered students for exams")
+System_Ext(schoolyear, "SchoolYear", "Secures ANS so it can only be used in a safe browser")
+
+student --> answeb : Uses
+teacher --> ansdash : Uses
+answeb -> ansapp: Uses
+ansapp <- ansdash: uses
+ansapp --> ansbackend : Uses
+ansapi <- ansbackend : Uses
+ansdb <- ansapi : uses
+schoolyear <- answeb: Uses
+ansbackend -> osiris: Uses
+
+
+@enduml
