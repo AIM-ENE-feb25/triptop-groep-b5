@@ -5,7 +5,7 @@ Vervoer service:
 - https://rapidapi.com/volodimir.kudriachenko/api/Lyft
 
 Routeplanner service:
-- https://rapidapi.com/rphrp1985/api/google-api31/playground/apiendpoint_e7801fe0-8b25-4ac2-b7ac-360149e444a1
+- https://rapidapi.com/rphrp1985/api/google-api31
 
 Identity provider:
 - Wiremock @ https://aim-ene.github.io/soex/week-1/les-3/Voorbereiding
