@@ -1,0 +1,34 @@
+@startuml
+' convert it with additional command line argument -DRELATIVE_INCLUDE="./.." to use locally
+!if %variable_exists("RELATIVE_INCLUDE")
+  !include %get_variable_value("RELATIVE_INCLUDE")/C4_Container.puml
+!else
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!endif
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Container diagram voor ans
+
+Person(student, Student, "A student who uses a system to make exams")
+Person(teacher, Teacher, "A teacher who uses the system to create and grade exams")
+
+System_Boundary(c1, "System ANS") {
+Container(ans, Ans Web App, "Interface ANS functionaliteiten")
+Container(database, Database, "Opslaan van antwoorden en vragen van examens")
+Container(backEnd, BackEnd, "API voor ANS")
+}
+System_Ext(schoolyear, Schoolyear, "Schoolyear")
+System_Ext(osiris, Osiris, "Osiris")
+System_Ext(mail, Mail Provider, "Mail services")
+
+Rel(student, ans, "Navigeren ANS", HTTPS/JSON)
+Rel(teacher, ans, "Navigeren Ans", HTTPS/JSON)
+Rel(ans, backEnd, "Maakt verzoeken", HTTPS/JSON)
+Rel(backEnd, database, ".", IP/TPC)
+Rel(backEnd, osiris, "Cijfers publiceren", ?)
+Rel(ans, schoolyear, "Secure browsing", ?)
+
+@enduml
