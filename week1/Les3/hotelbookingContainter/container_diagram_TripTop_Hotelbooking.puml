@@ -28,11 +28,11 @@ System_Boundary(triptop, TripTop, "Het TripTop systeem"){
 System_Ext(identityprovider, "Identity Provider", "Wiremock Identity Provider api service")
 System_Ext(overnachting, "Overnachting Service", "Booking.com api service")
 
-reiziger --> (frontend) : boekt reis via
-reisagent --> (frontend) : helpt reiziger bij boeken reis via
-frontend --> backend : stuurt reisgegevens naar
-database <- backend : slaat reisgegevens op in
-backend --> identityprovider : authenticatie via
-frontend -> overnachting : zoekt overnachtingen via
+Rel(reiziger, frontend, "boekt reis via", "HTTP/HTTPS")
+Rel(reisagent, frontend, "helpt reiziger bij boeken reis via", "HTTP/HTTPS")
+Rel(frontend, backend, "stuurt reisgegevens naar", "JSON/HTTP/HTTPS")
+Rel(backend, database, "slaat reisgegevens op in", "JDBC/TCP")
+Rel(backend, identityprovider, "authenticatie via", "JSON")
+Rel(frontend, overnachting, "zoekt overnachtingen via", "?")
 
 @enduml
