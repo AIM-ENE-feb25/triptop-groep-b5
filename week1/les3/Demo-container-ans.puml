@@ -25,7 +25,7 @@ System_Boundary("key_boundary", "Ans", $tags="") {
     Rel(frontend, backend, "Communicates user behaviour, such as making tests, filling in tests and submitting grades, through the REST API.", $techn="JSON/HTTP(S)", $tags="", $link="")
     Rel(backend, db, "Returns and stores test information, answers and grades.", $techn="SQL", $tags="", $link="")
     Rel(backend, osiris, "Gets a list of students who are registered for a test", $techn="JSON/HTTP(S)", $tags="", $link="")
-    Rel(backend, schoolyear, "Checks if ans is used in a safe browser", $techn="JSON/HTTP(S)", $tags="", $link="")
+    Rel(frontend, schoolyear, "Checks if ans is used in a safe browser", $techn="JSON/HTTP(S)", $tags="", $link="")
  }
 
 
