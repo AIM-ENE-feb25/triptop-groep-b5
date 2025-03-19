@@ -1,0 +1,33 @@
+@startuml
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Container diagram voor het ans systeem
+
+Person(student, Student, "A student who uses the system to make exams")
+Person(teacher, Teacher, "A teacher who uses the system to create and grade exams")
+
+System_Ext(osiris, "Osiris", "Contains registered students for exams")
+System_Ext(schoolyear, "Schoolyear", "Secures ANS so it can only be used in a safe browser")
+
+System_Boundary("key_boundary", "Ans", $tags="") {
+    Container(frontend, "Frontend", $techn="JS/React", $descr="Shows a web page to the users, depending on the person's role. Shows the interface to make the exams, or grade them.", $tags="", $link="")
+    Container(backend, "Backend", $techn="Java/Spring Boot", $descr="Saves the responses to the exams, and saves the scores when they get graded. Makes sure only the right people can fill in and grade the exams.", $tags="", $link="")
+    ContainerDb(db, "Database", $techn="SQL/MySQL", $descr="Stores information about the exam, the filled in answers and the grades.", $tags="", $link="")
+    Rel(student, frontend, "Gets the questions for the exam and submits answers to the questions.", $techn="HTML/HTTP(S)", $tags="", $link="")
+    Rel(teacher, frontend, "Makes the tests and grades answers on the filled in tests.", $techn="HTML/HTTP(S)", $tags="", $link="")
+    Rel(frontend, backend, "Communicates user behaviour, such as making tests, filling in tests and submitting grades, through the REST API.", $techn="JSON/HTTP(S)", $tags="", $link="")
+    Rel(backend, db, "Returns and stores test information, answers and grades.", $techn="SQL", $tags="", $link="")
+    Rel(backend, osiris, "Gets a list of students who are registered for a test", $techn="JSON/HTTP(S)", $tags="", $link="")
+    Rel(backend, schoolyear, "Checks if ans is used in a safe browser", $techn="JSON/HTTP(S)", $tags="", $link="")
+ }
+
+
+
+@enduml
