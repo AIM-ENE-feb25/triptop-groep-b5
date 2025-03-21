@@ -176,6 +176,10 @@ Er zijn hier een aantal voordelen voor:
 > [!IMPORTANT]
 > TODO: Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's **inclusief begeleidende tekst** -> Moet nog.
 
+#### Dynamic container diagram: toevoegen punt in een reis
+
+![Dynamic Container Diagram Plannen](../opdracht-diagrammen/C4_Container_Diagram_Dynamic_Plannen.png)
+
 ### 7.2. Components
 
 > [!IMPORTANT]
