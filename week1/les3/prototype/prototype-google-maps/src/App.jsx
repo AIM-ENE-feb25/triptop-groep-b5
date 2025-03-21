@@ -57,7 +57,7 @@ function App() {
     <>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Zoeken..."
         value={search}
         onChange={(event) => setSearch(event.target.value)}
         className="border rounded p-2 mb-4 me-4"
@@ -65,7 +65,7 @@ function App() {
       <button
         onClick={() => query(search)}
       >
-        Search
+        Zoeken
       </button>
       <ul className="mt-4 space-y-4">
         {results?.places?.map((result, index) => (
