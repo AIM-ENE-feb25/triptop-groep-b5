@@ -82,6 +82,5 @@ website/i18n/**/*
 
 # Docusaurus build
 build/
-
-# Kroki cashed svg's
-/week1/Les4/prototype/src/main/resources/application.properties
+# Ignore application properties
+application.properties
