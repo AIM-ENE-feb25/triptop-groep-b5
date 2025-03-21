@@ -173,6 +173,9 @@ Er zijn hier een aantal voordelen voor:
 
 ![Container Diagram](../opdracht-diagrammen/C4_Container_Diagram.png)
 
+> [!TODO]
+> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's **inclusief begeleidende tekst** -> Moet nog.
+
 ### 7.2. Components
 
 > [!IMPORTANT]
