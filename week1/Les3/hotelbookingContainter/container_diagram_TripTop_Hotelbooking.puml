@@ -13,7 +13,7 @@ SHOW_PERSON_OUTLINE()
 
 AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
 
-title Context diagram voor het TripTop systeem
+title Container diagram voor het TripTop systeem
 
 Person(reiziger, Reiziger, "Een persoon die een reis samen wilt stellen")
 Person(reisagent, Reisagent, "Helpt reiziger bij het samenstellen van een reis")
