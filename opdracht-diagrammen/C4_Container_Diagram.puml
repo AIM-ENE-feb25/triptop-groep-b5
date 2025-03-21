@@ -27,7 +27,7 @@ System_Boundary("key_boundary", "Triptop", $tags="") {
     Rel(reisagent, frontend, "Helpt reiziger bij het samenstellen van een reis", $techn="HTML/HTTP(S)", $tags="", $link="")
     Rel(frontend, backend, "Slaat route van gebruiker op, dmv de REST API.", $techn="JSON/HTTP(S)", $tags="", $link="")
     Rel(backend, db, "Geeft en slaat informatie van de backend op.", $techn="TCP/IP/SQL", $tags="", $link="")
-    Rel(backend, wiremock, "Controleert of de gebruikersnaam/wachtwoord input correct is", $techn="(?)", $tags="", $link="")
+    Rel(backend, wiremock, "Controleert of de gebruikersnaam/wachtwoord input correct is", $techn="JSON/HTTP(S)", $tags="", $link="")
     Rel(backend, opentable, "Haalt restaurants op en maakt reserveringen", $techn="JSON/HTTP(S)", $tags="", $link="")
     Rel(backend, overnachting, "Zoekt overnachtingen via", $techn="JSON/HTTP(S)", $tags="", $link="")
     Rel(backend, uber, "Haalt vervoersinformatie op", $techn="JSON/HTTP(S)", $tags="", $link="")
