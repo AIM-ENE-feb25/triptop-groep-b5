@@ -42,6 +42,8 @@ function App() {
       })
     };
 
+    setResults({});
+
     fetch(url, options)
       .then(response => response.json())
       .then(data => {
@@ -71,7 +73,10 @@ function App() {
         {results?.places?.map((result, index) => (
           <li key={index}>
             <div className="flex flex-col">
-              <span className="font-bold text-lg" style={{ color: result.iconBackgroundColor }}>{result.displayName.text}</span>
+              <span className="font-bold text-lg" style={{ color: result.iconBackgroundColor }}>
+                {result.displayName.text + ' '}
+                {result?.currentOpeningHours && (<span className={`${result?.currentOpeningHours?.openNow ? 'text-green-500' : 'text-red-500'} font-semibold`}>({result.currentOpeningHours?.openNow ? 'Open' : 'Gesloten'})</span>)}
+              </span>
               <a
                 href={result.googleMapsLinks.placeUri}
                 target="_blank"
