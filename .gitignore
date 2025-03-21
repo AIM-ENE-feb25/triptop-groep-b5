@@ -84,4 +84,4 @@ website/i18n/**/*
 build/
 
 # Kroki cashed svg's
-week1/Les4/prototype/src/main/resources/application.properties
+/week1/Les4/prototype/src/main/resources/application.properties
