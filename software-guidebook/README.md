@@ -12,7 +12,7 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 > [!IMPORTANT]
 > Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.
 
-![Domain Story Reis Boeken AS IS](../opdracht-diagrammen/C4_Context_Diagram.puml)
+![Domain Story Reis Boeken AS IS](../opdracht-diagrammen/C4_Context_Diagram.png)
 
 Toelichting op de context van de software inclusief System Context Diagram:
 * Functionaliteit
