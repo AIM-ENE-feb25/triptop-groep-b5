@@ -82,5 +82,4 @@ website/i18n/**/*
 
 # Docusaurus build
 build/
-# Ignore application properties
-application.properties
+
