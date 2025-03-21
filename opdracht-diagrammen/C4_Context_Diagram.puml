@@ -36,17 +36,4 @@ triptop --> autoverhuur : Vraagt beschikbaarheid op en boekt huurauto's via
 triptop --> excursie : Vraagt beschikbaarheid op en boekt excursies via
 triptop --> accommodatie : Vraagt beschikbaarheid op en boekt accommodaties via
 
-note right of triptop
-  Algemene notities van individueel gemaakte diagrammen.
-  Alle titles waren niet volgens het juiste formaat.
-  2 van de diagrammen hebben geen actor beschrijving.
-  2 van de diagrammen hebben geen systeem beschrijving.
-  Er wordt Nederlandse taal gebruikt voor beschrijvingen en titels.
-  Elementen bij alle diagrammen verwijzen niet naar zichzelf.
-  Alle pijlen richten de goede kant op (naar beneden).
-  Er is geen gebruik gemaakt van kleuren.
-  Er is geen legenda toegevoegd.
-  Geen overbodige systeem uitleg van externe services.
-  Opbouw van alle diagrammen is hetzelfde.
-end note
 @enduml
