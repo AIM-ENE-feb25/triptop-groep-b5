@@ -31,7 +31,7 @@ System_Boundary("key_boundary", "Triptop", $tags="") {
     Rel(backend, opentable, "Haalt restaurants op en maakt reserveringen", $techn="JSON/HTTP(S)", $tags="", $link="")
     Rel(backend, overnachting, "Zoekt overnachtingen via", $techn="JSON/HTTP(S)", $tags="", $link="")
     Rel(backend, uber, "Haalt vervoersinformatie op", $techn="JSON/HTTP(S)", $tags="", $link="")
-    Rel(frontend, routeplanner, "Verkrijgt een map op basis van input van de gebruiker", $techn="(?)", $tags="", $link="")
+    Rel(frontend, routeplanner, "Verkrijgt een map op basis van input van de gebruiker", $techn="JSON/HTTP(S)", $tags="", $link="")
  }
 
 @enduml
