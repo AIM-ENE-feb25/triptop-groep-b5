@@ -1,0 +1,40 @@
+@startuml
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+
+' convert it with additional command line argument -DRELATIVE_INCLUDE="./.." to use locally
+!if %variable_exists("RELATIVE_INCLUDE")
+  !include %get_variable_value("RELATIVE_INCLUDE")/C4_Container.puml
+!else
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!endif
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Container diagram voor het TripTop systeem
+
+Person(reiziger, Reiziger, "Een persoon die een reis wilt plannen")
+Person(reisagent, Reisagent, "Een persoon die ondersteuning biedt bij het plannen van een reis")
+
+System_Boundary("key_boundary", "Ansie applicatie", $tags="") {
+Container(webapp, "Webapplicatie", "De UI van de applicatie", "React/Vue")
+Container(backend, "Backend", "Communiceert met de webapplicatie met REST API.", "Java, Spring Boot")
+ContainerDb(database, "Database", $techn="Database waar alle vragen worden opgeslagen.", $descr="Stores …", $tags="", $link="")
+}
+
+System_Ext(vervoer, "Uber service", "Uber API")
+System_Ext(wiremock, "Identity provider", "Een authenticatie service")
+
+Rel(reiziger, webapp, "Bezoekt triptop.nl", "HTTP")
+Rel(reisagent, webapp, "Ondersteunt reiziger op verzoek via", "HTTP")
+Rel(webapp, backend, "Communiceert met REST API", "HTTP/JSON")
+Rel(backend, database, "Leest en schrijft data", "TCP")
+Rel(backend, vervoer, "Haalt vervoersinformatie op")
+Rel(backend, wiremock, "Checkt Authenticatie en Autorisatie", "HTTP")
+
+
+@enduml
