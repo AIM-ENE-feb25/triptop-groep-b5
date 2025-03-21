@@ -16,23 +16,23 @@ function App() {
         'X-Goog-FieldMask': '*'
       },
       body: JSON.stringify({
-        textQuery: 'restaurants',
-        languageCode: '',
+        textQuery: search,
+        languageCode: 'nl',
         regionCode: '',
         rankPreference: 0,
         includedType: '',
         openNow: true,
         minRating: 0,
-        maxResultCount: 1,
+        maxResultCount: 20,
         priceLevels: [],
         strictTypeFiltering: true,
         locationBias: {
           circle: {
             center: {
-              latitude: 40,
-              longitude: -110
+              latitude: 51.983333,
+              longitude: 5.916667
             },
-            radius: 10000
+            radius: 20000
           }
         },
         evOptions: {
@@ -60,9 +60,28 @@ function App() {
         placeholder="Search..."
         value={search}
         onChange={(event) => setSearch(event.target.value)}
+        className="border rounded p-2 mb-4 me-4"
       />
-      <button onClick={() => query(search)}>Search</button>
-      {/* <p>Results: {results}</p> */}
+      <button
+        onClick={() => query(search)}
+      >
+        Search
+      </button>
+      <ul className="mt-4 space-y-4">
+        {results?.places?.map((result, index) => (
+          <li key={index}>
+            <div className="flex flex-col">
+              <span className="font-bold text-lg" style={{ color: result.iconBackgroundColor }}>{result.displayName.text}</span>
+              <a
+                href={result.googleMapsLinks.placeUri}
+                target="_blank"
+              >
+                {result.formattedAddress}
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
