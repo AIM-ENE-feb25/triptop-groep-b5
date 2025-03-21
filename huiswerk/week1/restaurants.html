@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurantlijst</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+        .tijd {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<h1>Beschikbare Restaurants</h1>
+<ul id="restaurantLijst">
+    <li>Restaurants worden geladen...</li>
+</ul>
+
+<script>
+    async function haalRestaurantsOp() {
+        const lijst = document.getElementById('restaurantLijst');
+        lijst.innerHTML = '<li>Bezig met laden...</li>';
+
+        try {
+            const response = await fetch('https://113864f6-42a3-45d4-af75-0e0aa53def71.mock.pstmn.io/restaurants?city=Amsterdam&date=2025-04-01&people=2');
+            const data = await response.json();
+
+            lijst.innerHTML = '';
+            data.restaurants.forEach(restaurant => {
+                const tijden = restaurant.available_times.map(t => `<span class="tijd">${t}</span>`).join(', ');
+                const item = document.createElement('li');
+                item.innerHTML = `<strong>${restaurant.name}</strong><br><span>${restaurant.location}</span><br>${tijden}`;
+                lijst.appendChild(item);
+            });
+        } catch (error) {
+            lijst.innerHTML = '<li>Er ging iets mis bij het ophalen van de restaurants.</li>';
+        }
+    }
+
+    haalRestaurantsOp();
+</script>
+</body>
+</html>

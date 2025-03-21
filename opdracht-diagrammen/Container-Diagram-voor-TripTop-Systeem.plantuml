@@ -21,12 +21,12 @@ Container(backend, Backend, "Backend voor het samenstellen van een reis")
 Container(database, Database, "Database voor het opslaan van gegevens")
 }
 
-System_Ext(opentable, Opentable APi, "API voor reserveren van restaurants")
+System_Ext(opentable, Opentable API, "API voor reserveren van restaurants")
 
 Rel(reiziger, triptop, "Plant een trip met", HTTPS)
 Rel(reisagent, triptop, "Ondersteunt reizigers via", HTTPS)
 Rel(triptop, backend, "Stuurt gegevens naar", HTTPS/JSON )
 Rel(backend, database, "Slaat en haalt gegevens op", TCP/IP )
-Rel(triptop, opentable, "Zoekt restaurants via")
+Rel(backend, opentable, "Haalt restaurants op en maakt reserveringen", HTTPS/JSON)
 
 @enduml
