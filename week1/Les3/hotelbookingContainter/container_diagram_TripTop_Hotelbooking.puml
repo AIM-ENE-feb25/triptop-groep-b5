@@ -33,6 +33,6 @@ Rel(reisagent, frontend, "helpt reiziger bij boeken reis via", "HTTP/HTTPS")
 Rel(frontend, backend, "stuurt reisgegevens naar", "JSON/HTTP/HTTPS")
 Rel(backend, database, "slaat reisgegevens op in", "JDBC/TCP")
 Rel(backend, identityprovider, "authenticatie via", "JSON")
-Rel(frontend, overnachting, "zoekt overnachtingen via", "?")
+Rel(backend, overnachting, "zoekt overnachtingen via", "HTTP/HTTPS")
 
 @enduml
