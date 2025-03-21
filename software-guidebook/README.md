@@ -171,8 +171,7 @@ Er zijn hier een aantal voordelen voor:
 
 ### 7.1. Containers
 
-> [!IMPORTANT]
-> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
+![Container Diagram](../opdracht-diagrammen/C4_Container_Diagram.png)
 
 ### 7.2. Components
 
