@@ -177,8 +177,19 @@ Er zijn hier een aantal voordelen voor:
 
 ### 7.1. Containers
 
+![Container Diagram](../opdracht-diagrammen/C4_Container_Diagram.png)
+
+In dit diagram zie je hoe de containers in dit systeem met elkaar en de externe system werken.
+De frontend maakt gebruik van google maps, omdat het geen API keys bevat en geen veiligheidsrisico geeft als de gebruiker toegang heeft tot de methodes die deze API gebruiken.
+De backend heeft connectie met de rest van de APIs omdat hier wel secret API keys gebruikt worden voor de connectie.
+De backend zorgt ervoor dat de connectie met de externe services op de juiste manier wordt gedaan, op aanvraag van de frontend.
+
 > [!IMPORTANT]
-> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
+> TODO: Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's **inclusief begeleidende tekst** -> Moet nog.
+
+#### Dynamic container diagram: toevoegen punt in een reis
+
+![Dynamic Container Diagram Plannen](../opdracht-diagrammen/C4_Container_Dynamic_Plannen.png)
 
 ### 7.2. Components
 
