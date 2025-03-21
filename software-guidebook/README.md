@@ -47,7 +47,13 @@ De kernfunctionaliteiten van Triptop zijn:
 
 ## Externe systemen:
 
-*
+* Overnachting Service (Booking.com Api)
+* Vervoer Service
+* Routeplanner Service (Google maps Api)
+* Identity Service
+* Autoverhuur Service
+* Excursie Service
+* Accommodatie Service
 
 ## 3. Functional Overview
 
