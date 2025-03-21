@@ -178,7 +178,7 @@ Er zijn hier een aantal voordelen voor:
 
 #### Dynamic container diagram: toevoegen punt in een reis
 
-![Dynamic Container Diagram Plannen](../opdracht-diagrammen/C4_Container_Diagram_Dynamic_Plannen.png)
+![Dynamic Container Diagram Plannen](../opdracht-diagrammen/C4_Container_Dynamic_Plannen.png)
 
 ### 7.2. Components
 
