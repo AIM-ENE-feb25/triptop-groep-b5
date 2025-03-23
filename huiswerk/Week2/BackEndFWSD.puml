@@ -1,0 +1,32 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+System_Boundary(c1, "FSWD Back-end") {
+  Component(GebruikerController, "GebruikerController", "Spring REST Controller", "Beheert login, registratie en logout van gebruikers")
+  Component(OnkostenController, "OnkostenController", "Spring REST Controller", "Beheert het toevoegen van declaraties")
+  Component(OverzichtController, "OverzichtController", "Spring REST Controller", "Geeft overzicht van declaraties van een gebruiker")
+
+  Component(GebruikerService, "GebruikerService", "Service", "Bevat de logica rondom gebruikersbeheer")
+  Component(OnkostenService, "OnkostenService", "Service", "Bevat de logica voor het toevoegen van onkosten")
+  Component(OverzichtService, "OverzichtService", "Service", "Bevat de logica voor ophalen van onkosten")
+
+  Component(GebruikerRepository, "GebruikerRepository", "Repository", "Data access layer voor gebruikers")
+  Component(OnkostenRepository, "OnkostenRepository", "Repository", "Data access layer voor declaraties")
+  Component(OverzichtRepository, "OverzichtRepository", "Repository", "Data access layer voor declaratieoverzichten")
+
+  Component(JwtUtil, "JwtUtil", "Component", "Beheert JWT-generatie, validatie en invalidatie")
+
+  GebruikerController ..> GebruikerService
+  OnkostenController ..> OnkostenService
+  OnkostenController ..> GebruikerService
+  OverzichtController ..> OverzichtService
+  OverzichtController ..> GebruikerService
+
+  GebruikerService ..> GebruikerRepository
+  OnkostenService ..> OnkostenRepository
+  OverzichtService ..> OverzichtRepository
+
+  GebruikerRepository ..> JwtUtil
+}
+@enduml
