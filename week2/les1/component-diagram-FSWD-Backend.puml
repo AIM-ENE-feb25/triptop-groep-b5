@@ -1,0 +1,40 @@
+@startuml
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Container diagram for FSWD
+
+Container(front, "Frontend", "React", "The frontend of FSWD")
+
+Container_Boundary(back, "Backend", "Container Backend FSWD"){
+    Component(bctrl, "BaseController", "Spring", "Handles authentication")
+    Component(cexpctrl, "CreateExpenseController", "Spring", "Handles creating expenses")
+    Component(expctrl, "ExpenseController", "Spring", "Handles managing expenses")
+    Component(lctrl, "LoginController", "Spring", "Handles login")
+    Component(expdao, "ExpenseDao", "JDBC/SQL/Spring", "Manages expenses with the database")
+    Component(tokenDao, "TokenDao", "JDBC/SQL/Spring", "Manages tokens with the database")
+}
+
+ContainerDb(ansdb, "ANS Database", "SQL", "Stores all data")
+
+Rel(front, bctrl, "Authenticates user with", "JSON/HTTP/HTTPS")
+Rel(front, cexpctrl, "Creates expenses using", "JSON/HTTP/HTTPS")
+Rel(front, expctrl, "manages expenses with", "JSON/HTTP/HTTPS")
+
+bctrl --> lctrl : Uses
+cexpctrl --> expdao : Uses
+expctrl --> expdao : Uses
+lctrl --> tokenDao : Uses
+Rel(tokenDao, ansdb, "Saves tokens in", "JDBC/TCP")
+Rel(expdao, ansdb, "manages expenses in", "JDBC/TCP")
+
+
+@enduml
