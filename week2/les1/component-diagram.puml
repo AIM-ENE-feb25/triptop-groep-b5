@@ -1,0 +1,46 @@
+@startuml
+
+package "config" {
+    [DBConfig]
+    [WebConfig]
+}
+
+package "controller" {
+    [BaseController]
+    [CreateExpenseController]
+    [ExpenseController]
+    [LoginController]
+}
+
+package "dao" {
+    [ExpenseDao]
+    [TokenDao]
+}
+
+package "domain" {
+    [Expense]
+    [User]
+}
+package "login" {
+    [UserToken]
+    [AuthenticaionService]
+}
+
+package "rowMapper" {
+    [ExpenseRowMapper]
+    [UserRowMapper]
+}
+
+[BaseController] --> [LoginController]
+[CreateExpenseController] --> [ExpenseDao]
+[ExpenseController] --> [ExpenseDao]
+[LoginController] --> [AuthenticaionService]
+[LoginController] --> [TokenDao]
+[UserToken] --> [User]
+[ExpenseDao] --> [Expense]
+[ExpenseDao] --> [ExpenseRowMapper]
+[AuthenticaionService] --> [UserRowMapper]
+
+
+
+@enduml
