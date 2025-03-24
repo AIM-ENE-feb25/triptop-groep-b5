@@ -1,0 +1,44 @@
+@startuml
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Component diagram voor het fswd backend container
+
+Person(gebruiker, Gebruiker, "Een persoon die de applicatie wilt gebruiken")
+
+Container(frontend, "Frontend", $techn="JS/React", $descr="Laat de pagina zien aan de gebruiker.", $tags="", $link="")
+ContainerDb(db, "Database", $techn="SQL/MySQL", $descr="Slaat informatie op vanuit de backend.", $tags="", $link="")
+
+Rel(gebruiker, frontend, "Plant een vakantietrip met", $techn="HTML/HTTP(S)", $tags="", $link="")
+
+Container_Boundary("key_boundary", "Backend container", $tags="") {
+    Component(authenticationController, "Authentication Controller", $techn="Spring Controller", $descr="?", $tags="", $link="")
+    Component(authenticationExceptionHandler, "Authentication Exception Handler", $techn="Spring Controller", $descr="?", $tags="", $link="")
+    Component(expenseController, "Expense Controller", $techn="Spring Controller", $descr="?", $tags="", $link="")
+    Component(expenseExceptionHandler, "Expense Exception Handler", $techn="Spring Controller", $descr="?", $tags="", $link="")
+    Component(authenticationService, "Authentication Service", $techn="Spring Service", $descr="?", $tags="", $link="")
+    Component(passwordEncoderService, "Password Encoder Service", $techn="Spring Service", $descr="?", $tags="", $link="")
+    Component(userInfoService, "User Info Service", $techn="Spring Service", $descr="?", $tags="", $link="")
+    Component(h2DatabaseUserDao, "H2 Database User Dao", $techn="Spring Repository", $descr="?", $tags="", $link="")
+    Rel(frontend, authenticationController, "Verkrijgt een map op basis van input van de gebruiker", $techn="JSON/HTTP(S)", $tags="", $link="")
+    Rel(frontend, expenseController, "Verkrijgt een map op basis van input van de gebruiker", $techn="JSON/HTTP(S)", $tags="", $link="")
+    Rel(authenticationController, authenticationExceptionHandler, "Handelt exceptions af op de juiste manier", $techn="", $tags="", $link="")
+    Rel(expenseController, expenseExceptionHandler, "Handelt exceptions af op de juiste manier", $techn="", $tags="", $link="")
+    Rel(authenticationController, authenticationService, "", $techn="", $tags="", $link="")
+    Rel(expenseController, authenticationService, "", $techn="", $tags="", $link="")
+    Rel(expenseController, userInfoService, "", $techn="", $tags="", $link="")
+    Rel(authenticationService, passwordEncoderService, "", $techn="", $tags="", $link="")
+    Rel(authenticationService, h2DatabaseUserDao, "", $techn="", $tags="", $link="")
+    Rel(userInfoService, h2DatabaseUserDao, "", $techn="", $tags="", $link="")
+    Rel(expenseController, db, "Slaat gegevens op van de applicatie", $techn="TCP/IP/SQL", $tags="", $link="")
+    Rel(h2DatabaseUserDao, db, "Slaat gegevens op van de applicatie", $techn="TCP/IP/SQL", $tags="", $link="")
+}
+
+@enduml
