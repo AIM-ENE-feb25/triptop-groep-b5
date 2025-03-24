@@ -14,7 +14,7 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 > [!IMPORTANT]
 > Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.
 
-![context diagram](../opdracht-diagrammen/C4_Context_Diagram.png)
+![context diagram](../opdracht-diagrammen/1Context/C4_Context_Diagram.png)
 
 [//]: # (Toelichting op de context van de software inclusief System Context Diagram:)
 
@@ -177,7 +177,7 @@ Er zijn hier een aantal voordelen voor:
 
 ### 7.1. Containers
 
-![Container Diagram](../opdracht-diagrammen/C4_Container_Diagram.png)
+![Container Diagram](../opdracht-diagrammen/2Container/C4_Container_Diagram.png)
 
 In dit diagram zie je hoe de containers in dit systeem met elkaar en de externe system werken.
 De frontend maakt gebruik van google maps, omdat het geen API keys bevat en geen veiligheidsrisico geeft als de gebruiker toegang heeft tot de methodes die deze API gebruiken.
@@ -189,7 +189,7 @@ De backend zorgt ervoor dat de connectie met de externe services op de juiste ma
 
 #### Dynamic container diagram: toevoegen punt in een reis
 
-![Dynamic Container Diagram Plannen](../opdracht-diagrammen/C4_Container_Dynamic_Plannen.png)
+![Dynamic Container Diagram Plannen](../opdracht-diagrammen/2Container/C4_Container_Dynamic_Plannen.png)
 
 ### 7.2. Components
 
