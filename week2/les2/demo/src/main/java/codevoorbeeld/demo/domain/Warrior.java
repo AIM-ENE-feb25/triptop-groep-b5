@@ -7,6 +7,6 @@ public class Warrior extends Character {
 
     @Override
     public String attack() {
-        return "Warrior " + name + " attacks with a sword!";
+        return name + " attacks with a sword!";
     }
 }
