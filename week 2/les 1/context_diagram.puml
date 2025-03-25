@@ -1,0 +1,33 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for TravelExpensePro - API Application
+
+Container(spa, "Webapplication", "React & JavaScript", "Biedt alle functionaliteit voor gebruikers via hun webbrowser.")
+ContainerDb(db, "Database", "Relational Database", "Slaat gebruikersgegevens, transacties en authenticatiegegevens op.")
+
+Container_Boundary(api, "API Application", "Spring Boot") {
+    Component(domain, "Domeinmodel", "Java Classes", "Bevat de kernentiteiten van de applicatie.")
+    Component(rowmapper, "RowMapper", "JDBC RowMapper", "Zet database records om naar Java-objecten.")
+    Component(repository, "Repository", "Spring Data Repository", "Beheert database-interacties.")
+    Component(service, "Service", "Spring Service", "Bevat de bedrijfslogica en coördineert gegevensverwerking.")
+    Component(controller, "Controller", "Spring REST Controller", "Behandelt API-verzoeken en stuurt antwoorden naar de frontend.")
+    Component(exceptions, "Exception Handler", "Spring Exception Handling", "Behandelt fouten en uitzonderingen in de applicatie.")
+    Component(idao, "DAO Interface", "Data Access Object", "Biedt een abstracte laag voor datatoegang.")
+
+    Rel(controller, service, "Gebruikt")
+    Rel(service, repository, "Gebruikt")
+    Rel(repository, rowmapper, "Gebruikt voor conversie")
+    Rel(repository, db, "Leest en schrijft naar", "JDBC")
+    Rel(controller, exceptions, "Behandelt fouten met")
+    Rel(service, idao, "Implementeert interface")
+    Rel(rowmapper, domain, "Gebruikt")
+}
+
+Rel(spa, controller, "Maakt API-aanroepen", "JSON/HTTPS")
+
+@enduml
