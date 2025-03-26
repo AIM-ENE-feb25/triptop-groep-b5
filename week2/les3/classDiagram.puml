@@ -1,21 +1,22 @@
 @startuml
 
 class Frontend {
-    +void login()
-    +void addTripComponents()
-    +List<Hotel> showHotels()
+
 }
 
 class AuthController {
+    -authService: AuthService
     +void login()
 }
 
 class ReisController {
+    -reisService: ReisService
     +void addTripComponents()
     +void getFullTrip()
 }
 
 class BestellingController {
+-reisService: ReisService
     +void getOrderOverview()
     +void payOrder()
 }
@@ -34,32 +35,48 @@ interface AuthAdapter {
     +TripTopGebruiker authenticateUser(String authToken)
 }
 
+class WireMockAdapter {
+    +boolean authenticateUser(String authToken)
+    +TripTopGebruiker authenticateUser(String authToken)
+}
+
 interface HotelAdapter {
     +List<Hotel> getHotels(String city, Date arrivalDate, Date departureDate, Double price)
 }
 
+class BookingApiAdapter {
+    +List<Hotel> getHotels(String city, Date arrivalDate, Date departureDate, Double price)
+}
+
+class TripAdvisorApiAdapter {
+    +List<Hotel> getHotels(String city, Date arrivalDate, Date departureDate, Double price)
+}
+
 class WireMock {
-    +String getToken(String username, String password)
+
 }
 
-class OvernachtingService1 {
-    +List<Accommodation> getAccommodations()
+class BookingApi {
+
 }
 
-class OvernachtingService2 {
-    +List<Accommodation> getAccommodations()
+class TripAdvisorApi {
+
 }
 
 Frontend --> AuthController
 AuthController --> AuthService
-AuthAdapter --> WireMock
+AuthAdapter --> WireMockAdapter
+WireMockAdapter --> WireMock
 Frontend --> ReisController
 ReisController --> ReisService
-HotelAdapter --> OvernachtingService1
-HotelAdapter --> OvernachtingService2
+HotelAdapter --> BookingApiAdapter
+HotelAdapter --> TripAdvisorApiAdapter
+BookingApiAdapter --> BookingApi
+TripAdvisorApiAdapter --> TripAdvisorApi
 Frontend --> BestellingController
 BestellingController --> ReisService
-AuthService --> AuthAdapter
-ReisService --> HotelAdapter
+AuthService <-- AuthAdapter
+ReisService <-- HotelAdapter
 
 @enduml
