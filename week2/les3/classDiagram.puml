@@ -1,0 +1,65 @@
+@startuml
+
+class Frontend {
+    +void login()
+    +void addTripComponents()
+    +List<Hotel> showHotels()
+}
+
+class AuthController {
+    +void login()
+}
+
+class ReisController {
+    +void addTripComponents()
+    +void getFullTrip()
+}
+
+class BestellingController {
+    +void getOrderOverview()
+    +void payOrder()
+}
+
+class AuthService {
+    +boolean authenticateUser(String authToken)
+    +UserInfo getUserInfo(String authToken)
+}
+
+class ReisService {
+    +List<Accommodation> getPossibleAccommodations()
+}
+
+interface AuthAdapter {
+    +boolean authenticateUser(String authToken)
+    +TripTopGebruiker authenticateUser(String authToken)
+}
+
+interface HotelAdapter {
+    +List<Hotel> getHotels(String city, Date arrivalDate, Date departureDate, Double price)
+}
+
+class WireMock {
+    +String getToken(String username, String password)
+}
+
+class OvernachtingService1 {
+    +List<Accommodation> getAccommodations()
+}
+
+class OvernachtingService2 {
+    +List<Accommodation> getAccommodations()
+}
+
+Frontend --> AuthController
+AuthController --> AuthService
+AuthAdapter --> WireMock
+Frontend --> ReisController
+ReisController --> ReisService
+HotelAdapter --> OvernachtingService1
+HotelAdapter --> OvernachtingService2
+Frontend --> BestellingController
+BestellingController --> ReisService
+AuthService --> AuthAdapter
+ReisService --> HotelAdapter
+
+@enduml
