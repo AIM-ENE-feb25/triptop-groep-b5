@@ -27,7 +27,7 @@ Container_Boundary("key_boundary", "Backend container", $tags="") {
     Component(bestellingController, "Bestelling Controller", $techn="Java/Spring Boot Controller", $descr="Overzicht van een bestelling ophalen en betalen", $tags="", $link="")
     Component(klantController, "Klant Controller", $techn="Java/Spring Boot Controller", $descr="Lijst van klanten ophalen en informatie over één specifieke klant", $tags="", $link="")
 
-    ' COMPONENT relations
+    ' CONTROLLER relations
     Rel(frontend, authController, "Logt in via", $techn="HTTP(S)/JSON", $tags="", $link="")
     Rel(frontend, reisController, "Voegt bouwstenen aan reis toe", $techn="HTTP(S)/JSON", $tags="", $link="")
     Rel(frontend, bestellingController, "Bekijkt bestelling en betaalt via", $techn="HTTP(S)/JSON", $tags="", $link="")
@@ -69,5 +69,7 @@ Container_Boundary("key_boundary", "Backend container", $tags="") {
     Rel(reisService, overnachting, "Boekt een gekozen overnachting via", $techn="HTTP(S)/JSON", $tags="", $link="")
     Rel(reisService, uber, "Boekt vervoer via", $techn="HTTP(S)/JSON", $tags="", $link="")
 }
+
+SHOW_LEGEND()
 
 @enduml

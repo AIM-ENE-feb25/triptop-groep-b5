@@ -34,4 +34,6 @@ System_Boundary("key_boundary", "Triptop", $tags="") {
     Rel(frontend, routeplanner, "Verkrijgt een map op basis van input van de gebruiker", $techn="JSON/HTTP(S)", $tags="", $link="")
  }
 
+SHOW_LEGEND()
+
 @enduml

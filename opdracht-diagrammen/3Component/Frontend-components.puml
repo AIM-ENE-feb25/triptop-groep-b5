@@ -47,4 +47,6 @@ Container_Boundary("key_boundary", "Frontend container", $tags="") {
     Rel(bestellingOverzichtPagina, backend, "Maakt API calls naar", $techn="HTTP(S)/JSON", $tags="", $link="")
 }
 
+SHOW_LEGEND()
+
 @enduml
