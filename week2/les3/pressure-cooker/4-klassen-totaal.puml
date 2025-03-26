@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+
+class AuthController {
+    +UserAccessInfo login(String username, String password);
+}
+
+interface AuthService {
+    +UserAccessInfo authorizeUser(String username, String password)
+}
+
+AuthController --> AuthService: -authService
+
+class AuthServiceImpl {
+    +UserAccessInfo authorizeUser(String username, String password)
+}
+AuthService <|.. AuthServiceImpl
+
+interface AuthPort {
+    +String getToken(String username, String password)
+    +UserAccessInfo getRole(String username, String token)
+}
+
+AuthServiceImpl --> AuthPort: -authPort
+
+class AuthPortWireMock {
+    +String getToken(String username, String password)
+    +UserAccessInfo getRole(String username, String token)
+}
+
+AuthPort <|.. AuthPortWireMock
+
+class UserAccessInfo {
+    +@JsonIgnore boolean access;
+    +String role;
+}
+
+AuthServiceImpl --> UserAccessInfo
+
+@enduml

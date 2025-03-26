@@ -1,0 +1,15 @@
+@startuml
+
+class AuthController {
+    -AuthService authService;
+    +UserAccessInfo login(String username, String password);
+}
+
+class UserAccessInfo {
+    +@JsonIgnore boolean access;
+    +String role;
+}
+
+AuthController --> UserAccessInfo
+
+@enduml
