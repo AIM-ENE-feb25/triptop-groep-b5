@@ -27,4 +27,6 @@ backend -> routeplanner : 4. Haalt de nieuwe route op
 routeplanner -> frontend : 5. Returnt de nieuwe map
 frontend -> reiziger : 6. Laat nieuwe map zien
 
+SHOW_LEGEND()
+
 @enduml

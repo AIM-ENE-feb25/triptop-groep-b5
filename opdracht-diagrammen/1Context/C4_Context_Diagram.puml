@@ -36,4 +36,6 @@ triptop --> autoverhuur : Vraagt beschikbaarheid op en boekt huurauto's via
 triptop --> excursie : Vraagt beschikbaarheid op en boekt excursies via
 triptop --> accommodatie : Vraagt beschikbaarheid op en boekt accommodaties via
 
+SHOW_LEGEND()
+
 @enduml

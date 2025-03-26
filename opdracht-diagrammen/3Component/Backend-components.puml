@@ -70,4 +70,6 @@ Container_Boundary("key_boundary", "Backend container", $tags="") {
     Rel(reisService, uber, "Boekt vervoer via", $techn="HTTP(S)/JSON", $tags="", $link="")
 }
 
+SHOW_LEGEND()
+
 @enduml
