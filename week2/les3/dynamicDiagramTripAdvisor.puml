@@ -10,15 +10,16 @@ left to right direction
 SHOW_PERSON_OUTLINE()
 
 AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+AddElementTag("Gebruikte Hotel API", $bgColor="Green", $fontColor="White")
 
-title Dynamic diagram voor het Triptop systeem met gebruik van meerdere hotel apis
+title Dynamic diagram voor het Triptop systeem met gebruik van TripAdvisor api
 
 Person(reiziger, Reiziger, "Een persoon die een reis samen wilt stellen")
 
 Container(frontend, "Frontend", $techn="JS/React", $descr="Laat de pagina zien aan de gebruiker.", $tags="", $link="")
 System_Ext(wiremock, "Identity Provider", "Geeft een token terug als je een geldige gebruikersnaam en wachtwoord geeft. WireMock")
 System_Ext(overnachting1, "Overnachting service", "Booking.com api service")
-System_Ext(overnachting2, "Overnachting service", "TripAdvisor api service")
+System_Ext(overnachting2, "Overnachting service", "TripAdvisor api service", $tags="Gebruikte Hotel API")
 
 Container_Boundary("Container", "Backend", $tags="") {
     Component(authController, "Autorisatie Controller", $techn="Java/Spring Boot Controller", $descr="Inloggen, account informatie, etc", $tags="", $link="")
@@ -30,20 +31,20 @@ Container_Boundary("Container", "Backend", $tags="") {
 
 
 reiziger --> frontend : 1. Gaat naar de login pagina
-frontend --> authController : 2. Logt in via
+frontend --> authController : 2. Logt in via [HTTP(S)]
 authController --> authService : 3. Gebruikt
-authService --> wiremock : 4. Autoriseert gebruikers via
-wiremock --> authService : 5. Geeft token / gegevens terug
+authService --> wiremock : 4. Autoriseert gebruikers via [JSON/HTTP(S)]
+wiremock --> authService : 5. Geeft token / gegevens terug [JSON/HTTP(S)]
 authService --> authController : 6. Geeft token terug
-authController --> frontend : 7. wordt ingelogd
-frontend --> reisController : 8. Voegt bouwstenen aan reis toe
+authController --> frontend : 7. wordt ingelogd [HTTP(S)]
+frontend --> reisController : 8. Haal hotels op via TripAdvisor [HTTP(S)]
 reisController --> reisService : 9. Gebruikt
-reisService --> overnachting1 : 10. Vraagt mogelijke overnachtingen op
-reisService --> overnachting2 : 10. Vraagt mogelijke overnachtingen op
-overnachting1 --> reisService : 11. Geeft mogelijke overnachtingen terug
-overnachting2 --> reisService : 11. Geeft mogelijke overnachtingen terug
-reisService --> reisController : 12. Geeft mogelijke overnachtingen terug
-reisController --> frontend : 13. Laat mogelijke overnachtingen zien
+reisService --> overnachting1 : 10. Vraagt mogelijke hotels op [JSON/HTTP(S)]
+reisService --> overnachting2 : 10. Vraagt mogelijke hotels op [JSON/HTTP(S)]
+overnachting1 --> reisService : 11. Geeft mogelijke hotels terug [JSON/HTTP(S)]
+overnachting2 --> reisService : 11. Geeft mogelijke hotels terug [JSON/HTTP(S)]
+reisService --> reisController : 12. Geeft mogelijke hotels terug
+reisController --> frontend : 13. Laat mogelijke hotels zien [HTTP(S)]
 
 
 SHOW_LEGEND()

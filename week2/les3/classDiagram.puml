@@ -27,7 +27,7 @@ class AuthService {
 }
 
 class ReisService {
-    +List<Accommodation> getPossibleAccommodations()
+    +List<Hotel> getHotels()
 }
 
 interface AuthAdapter {
@@ -66,17 +66,17 @@ class TripAdvisorApi {
 
 Frontend --> AuthController
 AuthController --> AuthService
-AuthAdapter --> WireMockAdapter
+AuthAdapter <|.. WireMockAdapter
 WireMockAdapter --> WireMock
 Frontend --> ReisController
 ReisController --> ReisService
-HotelAdapter --> BookingApiAdapter
-HotelAdapter --> TripAdvisorApiAdapter
+HotelAdapter <|.. BookingApiAdapter
+HotelAdapter <|.. TripAdvisorApiAdapter
 BookingApiAdapter --> BookingApi
 TripAdvisorApiAdapter --> TripAdvisorApi
 Frontend --> BestellingController
 BestellingController --> ReisService
-AuthService <-- AuthAdapter
-ReisService <-- HotelAdapter
+AuthService --> AuthAdapter
+ReisService --> HotelAdapter
 
 @enduml
