@@ -193,6 +193,12 @@ De backend zorgt ervoor dat de connectie met de externe services op de juiste ma
 
 ### 7.2. Components
 
+#### 7.2.1 Frontend
+![Frontend container](../opdracht-diagrammen/3Component/Frontend-components.png)
+
+#### 7.2.2 Backend
+![Backend container](../opdracht-diagrammen/3Component/Backend-components.png)
+
 > [!IMPORTANT]
 > Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
 
