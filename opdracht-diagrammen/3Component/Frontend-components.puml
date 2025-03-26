@@ -19,34 +19,32 @@ Container(backend, "Backend", $techn="Java/Spring Boot", $descr="Laat locaties o
 
 System_Ext(routeplanner, "Routeplanner Service: Google Maps", "Geeft een map terug als je een locatie geeft")
 
-' TODO Vraagtekens invullen
-
 Container_Boundary("key_boundary", "Frontend container", $tags="") {
     ' PAGINA'S
-    Component(loginPagina, "Login Pagina", $techn="JSX/React", $descr="?", $tags="", $link="")
-    Component(samenstelPagina, "Samenstel Pagina", $techn="JSX/React", $descr="?", $tags="", $link="")
-    Component(reisoverzichtPagina, "Reisoverzicht Pagina", $techn="JSX/React", $descr="?", $tags="", $link="")
-    Component(bestellingOverzichtPagina, "Bestelling Overzicht Pagina", $techn="JSX/React", $descr="?", $tags="", $link="")
-    Component(klantDashboardPagina, "Klant Dashboard Pagina", $techn="JSX/React", $descr="?", $tags="", $link="")
+    Component(loginPagina, "Login Pagina", $techn="JSX/React", $descr="Bevat een knop om in te loggen via een OAuth provider", $tags="", $link="")
+    Component(samenstelPagina, "Samenstel Pagina", $techn="JSX/React", $descr="Bevat de bouwstenen om een reis samen te stellen", $tags="", $link="")
+    Component(reisoverzichtPagina, "Reisoverzicht Pagina", $techn="JSX/React", $descr="Lijst van gekozen bouwstenen en overige informatie (bijv lengte van de reis)", $tags="", $link="")
+    Component(bestellingOverzichtPagina, "Bestelling Overzicht Pagina", $techn="JSX/React", $descr="Winkelmandje van de reis en de optie om te betalen", $tags="", $link="")
+    Component(klantDashboardPagina, "Klant Dashboard Pagina", $techn="JSX/React", $descr="Overzicht van klanten en hun gekozen reis", $tags="", $link="")
 
     ' PAGINA relations
-    Rel(reiziger, loginPagina, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(reisagent, loginPagina, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(reiziger, samenstelPagina, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(reiziger, reisoverzichtPagina, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(reisagent, reisoverzichtPagina, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(reiziger, bestellingOverzichtPagina, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(reisagent, klantDashboardPagina, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reiziger, loginPagina, "Logt in via", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reisagent, loginPagina, "Logt in via", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reiziger, samenstelPagina, "Stelt reis samen via", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reiziger, reisoverzichtPagina, "Ziet gekozen reis via", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reisagent, reisoverzichtPagina, "Ziet gekozen reizen van klanten via", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reiziger, bestellingOverzichtPagina, "Ziet bestelling en kan betalen via", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reisagent, klantDashboardPagina, "Beheert klanten via", $techn="HTTP(S)/HTML", $tags="", $link="")
 
     ' EXTERN
-    Rel(reisoverzichtPagina, routeplanner, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reisoverzichtPagina, routeplanner, "Haalt mogelijke locaties op, op basis van zoekinput", $techn="HTTP(S)/JSON", $tags="", $link="")
 
     ' NAAR BACKEND
-    Rel(reisoverzichtPagina, backend, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(loginPagina, backend, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(klantDashboardPagina, backend, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(samenstelPagina, backend, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
-    Rel(bestellingOverzichtPagina, backend, "?", $techn="HTTP(S)/HTML", $tags="", $link="")
+    Rel(reisoverzichtPagina, backend, "Maakt API calls naar", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(loginPagina, backend, "Maakt API calls naar", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(klantDashboardPagina, backend, "Maakt API calls naar", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(samenstelPagina, backend, "Maakt API calls naar", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(bestellingOverzichtPagina, backend, "Maakt API calls naar", $techn="HTTP(S)/JSON", $tags="", $link="")
 }
 
 @enduml
