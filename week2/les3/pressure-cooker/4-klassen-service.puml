@@ -1,5 +1,5 @@
 @startuml
-left to right direction
+'left to right direction
 
 interface AuthService {
     +UserAccessInfo authorizeUser(String username, String password)
