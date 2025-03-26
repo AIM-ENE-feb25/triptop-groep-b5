@@ -8,7 +8,7 @@ LAYOUT_WITH_LEGEND()
 title Component diagram for TravelExpensePro - API Application
 
 Container(spa, "Webapplication", "React & JavaScript", "Biedt alle functionaliteit voor gebruikers via hun webbrowser.")
-ContainerDb(db, "Database", "Relational Database", "Slaat gebruikersgegevens, transacties en authenticatiegegevens op.")
+ContainerDb(db, "Database", "H2 Database", "Slaat gebruikersgegevens, transacties en authenticatiegegevens op.")
 
 Container_Boundary(api, "API Application", "Spring Boot") {
     Component(domain, "Domeinmodel", "Java Classes", "Bevat de kernentiteiten van de applicatie.")

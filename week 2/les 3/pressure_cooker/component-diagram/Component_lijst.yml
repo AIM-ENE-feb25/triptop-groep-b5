@@ -1,0 +1,21 @@
+Request controller:
+  verantwoordelijkheid: "Het ontvangen van een request en het doorsturen naar de juiste service"
+  principe: Single Responsibility Principle.
+
+Authenticatie service:
+    verantwoordelijkheid: "Het controleren van de authenticatie van de gebruiker"
+    principe: Single Responsibility Principle.
+
+Authenticatie util:
+    verantwoordelijkheid: "Verleent toegang voor bepaalde rollen"
+    principe: Single Responsibility Principle.
+
+Proxy gateway:
+    verantwoordelijkheid: "Een tussenlaag tussen de verouderde api."
+    principe: Single Responsibility Principle.
+
+Logging component:
+    verantwoordelijkheid: "Het loggen van alle requests en responses"
+    principe: Single Responsibility Principle.
+
+componenten zijn: dingen die achter een interface zitten denk aan DOEX, DAO, service, controller, util, gateway, etc.

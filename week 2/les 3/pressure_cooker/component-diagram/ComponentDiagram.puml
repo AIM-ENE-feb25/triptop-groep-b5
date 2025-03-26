@@ -1,0 +1,21 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component Diagram voor de API Application container van verouderde API's
+
+Container(webapp, "Front-end", "JS/React", "Behandelt veilige communicatie met verouderde externe APIs.")
+
+Container_Boundary(apiComponents, "API Application Container") {
+    Component(controller, "Gateway controller", "Spring REST Controller", "Behandelt verzoeken naar verouderde API's.")
+    Component(service, "Gateway service", "Spring service", "Controleert of gebruiker toegang heeft.")
+}
+
+System_Ext(externalApi, "Verouderde Externe API", "Een verouderde API zonder beveiliging", "External System")
+
+Rel(webapp, controller, "Verzendt API-verzoek", "JSON/HTTPS")
+Rel(controller, service, "Delegeert naar")
+Rel(service, externalApi, "Communiceert met de externe API", "HTTP")
+
+@enduml
