@@ -5,23 +5,23 @@ class AuthController {
     +UserAccessInfo login(String username, String password);
 }
 
-interface AuthService {
+interface IAuthService {
     +UserAccessInfo authorizeUser(String username, String password)
 }
 
-AuthController --> AuthService: -authService
+AuthController --> IAuthService: -authService
 
-class AuthServiceImpl {
+class AuthService {
     +UserAccessInfo authorizeUser(String username, String password)
 }
-AuthService <|.. AuthServiceImpl
+IAuthService <|.. AuthService
 
 interface AuthPort {
     +String getToken(String username, String password)
     +UserAccessInfo getRole(String username, String token)
 }
 
-AuthServiceImpl --> AuthPort: -authPort
+AuthService --> AuthPort: -authPort
 
 class AuthPortWireMock {
     +String getToken(String username, String password)
@@ -35,6 +35,6 @@ class UserAccessInfo {
     +String role;
 }
 
-AuthServiceImpl --> UserAccessInfo
+AuthService --> UserAccessInfo
 
 @enduml
