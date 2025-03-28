@@ -11,9 +11,6 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 ## 2. Context
 
-> [!IMPORTANT]
-> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.
-
 ![context diagram](../opdracht-diagrammen/1Context/C4_Context_Diagram.png)
 
 [//]: # (Toelichting op de context van de software inclusief System Context Diagram:)
@@ -143,6 +140,12 @@ De applicatie moet gebruik maken van een externe authenticatie service.
 
 * De applicatie moet voldoen aan de eisen van de externe authenticatie service.
 
+#### 5.3 Randvoorwaarden:
+
+* De persoonlijke API keys van RapidAPI worden niet opgeslagen in de applicatie en worden gezet in de gitignore file.
+* De API keys worden in de applicatie geplaatst via een environment variabele.
+* De API keys mogen niet zomaar hardcoded in de controller of iets dergelijks worden geplaatst.
+
 ## 6. Principles
 
 ### 6.1. Architecture Principles
@@ -158,12 +161,6 @@ Er zijn hier een aantal voordelen voor:
 * Snellere ontwikkeltijd
 * Minder onderhoud
 * Flexibiliteit in het gebruik van externe services
-
-#### Randvoorwaarden:
-
-* De persoonlijke API keys van RapidAPI worden niet opgeslagen in de applicatie en worden gezet in de gitignore file.
-* De API keys worden in de applicatie geplaatst via een environment variabele.
-* De API keys mogen niet zomaar hardcoded in de controller of iets dergelijks worden geplaatst.
 
 ### 6.2. Design Principles
 
@@ -184,17 +181,17 @@ De frontend maakt gebruik van google maps, omdat het geen API keys bevat en geen
 De backend heeft connectie met de rest van de APIs omdat hier wel secret API keys gebruikt worden voor de connectie.
 De backend zorgt ervoor dat de connectie met de externe services op de juiste manier wordt gedaan, op aanvraag van de frontend.
 
-> [!IMPORTANT]
-> TODO: Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's **inclusief begeleidende tekst** -> Moet nog.
-
 #### Dynamic container diagram: toevoegen punt in een reis
 
 ![Dynamic Container Diagram Plannen](../opdracht-diagrammen/2Container/C4_Container_Dynamic_Plannen.png)
 
 ### 7.2. Components
 
-> [!IMPORTANT]
-> Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
+#### 7.2.1 Frontend
+![Frontend container](../opdracht-diagrammen/3Component/Frontend-components.png)
+
+#### 7.2.2 Backend
+![Backend container](../opdracht-diagrammen/3Component/Backend-components.png)
 
 ### 7.3. Design & Code
 
@@ -203,9 +200,6 @@ De backend zorgt ervoor dat de connectie met de externe services op de juiste ma
 > begeleidende tekst.
 
 ## 8. Architectural Decision Records
-
-> [!IMPORTANT]
-> Voeg toe: 3 tot 5 ADR's die beslissingen beschrijven die zijn genomen tijdens het ontwerpen en bouwen van de software.
 
 ### 8.1. ADR-001 Maps API
 
@@ -277,91 +271,128 @@ De secret keys zullen zeer waarschijnlijk niet in git terecht komen, omdat deze 
 We moeten wel nog uitzoeken hoe we de .env variabelen in Java krijgen, omdat we hier nog niet bekend mee zijn. Ook zal
 elk teamlid individueel dit moeten instellen met hun eigen API keys.
 
-### 8.3. ADR-003 TITLE
+### 8.3. ADR-003 OAuth2 Provider
 
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "
-> ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it
-> is a conversation with a future developer. This requires good writing style, with full sentences organized into
-> paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill
-> people, even PowerPoint bullets.)
+Datum: 2025-03-27
 
 #### Context
 
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces
-> are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply
-> describing facts about the problem we're facing and points out factors to take into account or to weigh when making the
-> final decision.
+Als eis voor de applicatie is gesteld dat er gebruik gemaakt moet worden van een externe authenticatie service.
+Er zijn verschillende providers, deze hebben allemaal hun eigen voor- en nadelen. Het is belangrijk om een provider te
+kiezen die past bij de applicatie en de eisen die gesteld zijn.
 
 #### Considered Options
 
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was
-> selected.
+| Forces                              | WireMock | Google OAuth2 | Eigen Authenticatie |
+|-------------------------------------|----------|---------------|---------------------|
+| Voldoet aan eisen van de applicatie | +        | ++            | --                  |
+| Moeilijkheid implementatie          | ++       | --            | -                   |
+| Documentatie                        | 0        | +             | -                   |
 
 #### Decision
 
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We
-> will …"
+We hebben besloten om gebruik te maken van WireMock. Dit is een makkelijke optie om te implementeren.
+Het voldoet aan de eisen van de applicatie en is makkelijk te implementeren.
+Voor een prototype is dit een goede keuze, op een later moment kan er altijd nog gekozen worden voor een andere provider.
 
 #### Status
 
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed.
-> If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its
-> replacement.
+Accepted
 
 #### Consequences
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not
-> just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them
-> affect the team and project in the future.
+Het is makkelijk te implementeren en zorgt er daarmee voor dat er niet te veel tijd verspilt wordt aan het implementeren van authenticatie.
+Omdat het een mock is, biedt het geen veiligheid of echte authenticatie. Het is dus belangrijk om dit niet te gebruiken in productie.
 
-### 8.4. ADR-004 TITLE
+### 8.4. ADR-004 prioriteit APIs
 
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "
-> ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it
-> is a conversation with a future developer. This requires good writing style, with full sentences organized into
-> paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill
-> people, even PowerPoint bullets.)
+Datum: 2025-03-27
+
+#### Status
+
+In-Review
 
 #### Context
 
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces
-> are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply
-> describing facts about the problem we're facing and points out factors to take into account or to weigh when making the
-> final decision.
+De API wisselmethode is een manier om de API te laten kiezen welke data er teruggegeven moet worden.
+Op welke manier de keuze wordt gemaakt is afhankelijk van de API en de data die deze teruggeeft.
 
 #### Considered Options
 
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was
-> selected.
+| Forces                          | Op basis van prijs | Klant kiest zelf | Op basis van hoeveelheid resultaaten | 
+|---------------------------------|--------------------|------------------|--------------------------------------|
+| Flexibiliteit voor de gebruiker | 0                  | ++               | --                                   |
+| Makkelijk te implementeren      | -                  | ++               | ++                                   |
+| Schaalbaarheid                  | +                  | 0                | ++                                   |
+
 
 #### Decision
 
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We
-> will …"
-
-#### Status
-
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed.
-> If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its
-> replacement.
+De API wisselmethode zal gebaseerd worden op hoeveelheid resultaten. 
+Dit betekent dat de gebruiker niks hoeft te kiezen en krijgt altijd de meest relevante resultaten.
 
 #### Consequences
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not
-> just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them
-> affect the team and project in the future.
+De keuze voor wisselmethode op basis van hoeveelheid resultaten maakt de API efficiënter en schaalbaarder door alleen de meest relevante data terug te sturen. 
+Dit vermindert echter de controle voor gebruikers, waardoor sommige verwachte gegevens mogelijk ontbreken.
+
+### 8.5. ADR-005 Database keuze
+
+#### Context
+
+Voor de applicatie is een database nodig om data op te slaan. Er zijn verschillende databases die gebruikt kunnen worden.
+Het is belangrijk om een database te kiezen die past bij de applicatie en de eisen die gesteld zijn.
+
+#### Considered Options
+
+| Forces                              | H2 | MySQL | PostgreSQL | MongoDB |
+|-------------------------------------|----|------|------------|---------|
+| Snelheid                            | ++ | 0    | 0          | +       |
+| Schaalbaarheid                      | -  | +    | ++         | ++      |
+| Documentatie                        | 0  | +    | ++         | +       |
+
+#### Decision
+
+We hebben besloten om H2 te gaan gebruiken. Dit is een makkelijke optie om te implementeren.
+Het is snel en makkelijk te implementeren. Voor een prototype is dit een goede keuze, op een later moment kan er altijd nog gekozen worden voor een andere database.
+
+#### Status
+
+Accepted
+
+#### Consequences
+
+Dit zorgt ervoor dat de database elke keer opnieuw wordt opgebouwd en er geen data wordt opgeslagen.
+Voor productie is dit niet handig, maar voor een prototype is dit prima.
+ 
+### 8.6. ADR-005 Pattern keuze
+
+#### Context
+
+Tijdens de ontwikkeling van de applicatie moeten we minimaal 3 patterns gebruiken.
+Er zijn vijf patterns die we kunnen gebruiken.
+
+#### Considered Options
+
+| Forces                              | State | Strategy | Adapter | Facade | Factory Method |
+|-------------------------------------|-------|----------|---------|--------|----------------|
+| Makkelijkheid implementatie         | +     | ++       | +       | ++     | -              |
+| Flexibiliteit                       | ++    | +        | -       | 0      | +              |
+| Documentatie                        | 0     | +        | +       | ++     | -              |
+
+#### Decision
+
+We hebben gekozen om gebruik te gaan maken van de Strategy, Adapter en Facade patterns.
+
+#### Status
+
+Accepted
+
+#### Consequences
+
+Dit zorgt ervoor dat de code makkelijker te onderhouden is en dat er minder code herhaald hoeft te worden.
+Het zorgt er ook voor dat de code makkelijker te begrijpen is voor andere developers.
+Het kan zijn dat het later blijkt dat een pattern niet nodig is, of een ander pattern beter is. Deze keuze kan altijd nog aangepast worden.
 
 ### 8.5. ADR-005 TITLE
 
