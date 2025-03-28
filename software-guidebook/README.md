@@ -11,9 +11,6 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 ## 2. Context
 
-> [!IMPORTANT]
-> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.
-
 ![context diagram](../opdracht-diagrammen/1Context/C4_Context_Diagram.png)
 
 [//]: # (Toelichting op de context van de software inclusief System Context Diagram:)
@@ -143,6 +140,12 @@ De applicatie moet gebruik maken van een externe authenticatie service.
 
 * De applicatie moet voldoen aan de eisen van de externe authenticatie service.
 
+#### 5.3 Randvoorwaarden:
+
+* De persoonlijke API keys van RapidAPI worden niet opgeslagen in de applicatie en worden gezet in de gitignore file.
+* De API keys worden in de applicatie geplaatst via een environment variabele.
+* De API keys mogen niet zomaar hardcoded in de controller of iets dergelijks worden geplaatst.
+
 ## 6. Principles
 
 ### 6.1. Architecture Principles
@@ -158,12 +161,6 @@ Er zijn hier een aantal voordelen voor:
 * Snellere ontwikkeltijd
 * Minder onderhoud
 * Flexibiliteit in het gebruik van externe services
-
-#### Randvoorwaarden:
-
-* De persoonlijke API keys van RapidAPI worden niet opgeslagen in de applicatie en worden gezet in de gitignore file.
-* De API keys worden in de applicatie geplaatst via een environment variabele.
-* De API keys mogen niet zomaar hardcoded in de controller of iets dergelijks worden geplaatst.
 
 ### 6.2. Design Principles
 
