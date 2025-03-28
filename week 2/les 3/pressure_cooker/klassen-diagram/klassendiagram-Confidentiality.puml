@@ -1,0 +1,24 @@
+@startuml
+interface GatewayServicePort {
+    + boolean hasAccessToLegacyApi(String userId)
+}
+
+class GatewayController {
+    - GatewayServicePort gatewayServicePort
+    + GatewayController(GatewayServicePort gatewayServicePort)
+    + handleRequest()
+}
+
+class GatewayService implements GatewayServicePort {
+    + boolean hasAccessToLegacyApi(String userId)
+}
+
+class ExterneApiService {
+    + communicateWithExternalApi()
+}
+
+GatewayController --> GatewayServicePort : uses
+GatewayServicePort ...> GatewayService : implements
+GatewayService ..> ExterneApiService : uses
+
+@enduml
