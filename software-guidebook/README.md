@@ -283,48 +283,36 @@ De secret keys zullen zeer waarschijnlijk niet in git terecht komen, omdat deze 
 We moeten wel nog uitzoeken hoe we de .env variabelen in Java krijgen, omdat we hier nog niet bekend mee zijn. Ook zal
 elk teamlid individueel dit moeten instellen met hun eigen API keys.
 
-### 8.3. ADR-003 TITLE
-
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "
-> ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it
-> is a conversation with a future developer. This requires good writing style, with full sentences organized into
-> paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill
-> people, even PowerPoint bullets.)
+### 8.3. ADR-003 OAuth2 Provider
 
 #### Context
 
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces
-> are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply
-> describing facts about the problem we're facing and points out factors to take into account or to weigh when making the
-> final decision.
+Als eis voor de applicatie is gesteld dat er gebruik gemaakt moet worden van een externe authenticatie service.
+Er zijn verschillende providers, deze hebben allemaal hun eigen voor- en nadelen. Het is belangrijk om een provider te
+kiezen die past bij de applicatie en de eisen die gesteld zijn.
 
 #### Considered Options
 
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was
-> selected.
+| Forces                              | WireMock | Google OAuth2 | Eigen Authenticatie |
+|-------------------------------------|----------|---------------|---------------------|
+| Voldoet aan eisen van de applicatie | +        | ++            | --                  |
+| Moeilijkheid implementatie          | ++       | --            | -                   |
+| Documentatie                        | 0        | +             | -                   |
 
 #### Decision
 
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We
-> will …"
+We hebben besloten om gebruik te maken van WireMock. Dit is een makkelijke optie om te implementeren.
+Het voldoet aan de eisen van de applicatie en is makkelijk te implementeren.
+Voor een prototype is dit een goede keuze, op een later moment kan er altijd nog gekozen worden voor een andere provider.
 
 #### Status
 
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed.
-> If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its
-> replacement.
+Accepted
 
 #### Consequences
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not
-> just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them
-> affect the team and project in the future.
+Het is makkelijk te implementeren en zorgt er daarmee voor dat er niet te veel tijd verspilt wordt aan het implementeren van authenticatie.
+Omdat het een mock is, biedt het geen veiligheid of echte authenticatie. Het is dus belangrijk om dit niet te gebruiken in productie.
 
 ### 8.4. ADR-004 TITLE
 
