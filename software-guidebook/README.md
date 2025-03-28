@@ -181,9 +181,6 @@ De frontend maakt gebruik van google maps, omdat het geen API keys bevat en geen
 De backend heeft connectie met de rest van de APIs omdat hier wel secret API keys gebruikt worden voor de connectie.
 De backend zorgt ervoor dat de connectie met de externe services op de juiste manier wordt gedaan, op aanvraag van de frontend.
 
-> [!IMPORTANT]
-> TODO: Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's **inclusief begeleidende tekst** -> Moet nog.
-
 #### Dynamic container diagram: toevoegen punt in een reis
 
 ![Dynamic Container Diagram Plannen](../opdracht-diagrammen/2Container/C4_Container_Dynamic_Plannen.png)
@@ -196,9 +193,6 @@ De backend zorgt ervoor dat de connectie met de externe services op de juiste ma
 #### 7.2.2 Backend
 ![Backend container](../opdracht-diagrammen/3Component/Backend-components.png)
 
-> [!IMPORTANT]
-> Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
-
 ### 7.3. Design & Code
 
 > [!IMPORTANT]
@@ -206,9 +200,6 @@ De backend zorgt ervoor dat de connectie met de externe services op de juiste ma
 > begeleidende tekst.
 
 ## 8. Architectural Decision Records
-
-> [!IMPORTANT]
-> Voeg toe: 3 tot 5 ADR's die beslissingen beschrijven die zijn genomen tijdens het ontwerpen en bouwen van de software.
 
 ### 8.1. ADR-001 Maps API
 
@@ -282,6 +273,8 @@ elk teamlid individueel dit moeten instellen met hun eigen API keys.
 
 ### 8.3. ADR-003 OAuth2 Provider
 
+Datum: 2025-03-27
+
 #### Context
 
 Als eis voor de applicatie is gesteld dat er gebruik gemaakt moet worden van een externe authenticatie service.
@@ -343,6 +336,35 @@ Dit betekent dat de gebruiker niks hoeft te kiezen en krijgt altijd de meest rel
 De keuze voor wisselmethode op basis van hoeveelheid resultaten maakt de API efficiënter en schaalbaarder door alleen de meest relevante data terug te sturen. 
 Dit vermindert echter de controle voor gebruikers, waardoor sommige verwachte gegevens mogelijk ontbreken.
 
+### 8.5. ADR-005 Database keuze
+
+#### Context
+
+Voor de applicatie is een database nodig om data op te slaan. Er zijn verschillende databases die gebruikt kunnen worden.
+Het is belangrijk om een database te kiezen die past bij de applicatie en de eisen die gesteld zijn.
+
+#### Considered Options
+
+| Forces                              | H2 | MySQL | PostgreSQL | MongoDB |
+|-------------------------------------|----|------|------------|---------|
+| Snelheid                            | ++ | 0    | 0          | +       |
+| Schaalbaarheid                      | -  | +    | ++         | ++      |
+| Documentatie                        | 0  | +    | ++         | +       |
+
+#### Decision
+
+We hebben besloten om H2 te gaan gebruiken. Dit is een makkelijke optie om te implementeren.
+Het is snel en makkelijk te implementeren. Voor een prototype is dit een goede keuze, op een later moment kan er altijd nog gekozen worden voor een andere database.
+
+#### Status
+
+Accepted
+
+#### Consequences
+
+Dit zorgt ervoor dat de database elke keer opnieuw wordt opgebouwd en er geen data wordt opgeslagen.
+Voor productie is dit niet handig, maar voor een prototype is dit prima.
+ 
 ### 8.5. ADR-005 TITLE
 
 > [!TIP]
