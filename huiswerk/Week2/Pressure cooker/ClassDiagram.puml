@@ -1,13 +1,6 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-class Reiziger {
-  - id: UUID
-  - naam: String
-  - email: String
-  + planTrip(data: TripData): void
-}
-
 class Frontend {
   + toontKaart()
   + verzameltInput()
@@ -49,7 +42,6 @@ class GoogleMapsService {
   + berekentRoute()
 }
 
-Reiziger --> Frontend
 Frontend --> Backend
 Frontend --> GoogleMapsService
 Backend --> Database
