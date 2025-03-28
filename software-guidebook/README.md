@@ -314,48 +314,37 @@ Accepted
 Het is makkelijk te implementeren en zorgt er daarmee voor dat er niet te veel tijd verspilt wordt aan het implementeren van authenticatie.
 Omdat het een mock is, biedt het geen veiligheid of echte authenticatie. Het is dus belangrijk om dit niet te gebruiken in productie.
 
-### 8.4. ADR-004 TITLE
+### 8.4. ADR-004 prioriteit APIs
 
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "
-> ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it
-> is a conversation with a future developer. This requires good writing style, with full sentences organized into
-> paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill
-> people, even PowerPoint bullets.)
-
-#### Context
-
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces
-> are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply
-> describing facts about the problem we're facing and points out factors to take into account or to weigh when making the
-> final decision.
-
-#### Considered Options
-
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was
-> selected.
-
-#### Decision
-
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We
-> will …"
+Datum: 2025-03-27
 
 #### Status
 
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed.
-> If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its
-> replacement.
+In-Review
+
+#### Context
+
+De API wisselmethode is een manier om de API te laten kiezen welke data er teruggegeven moet worden.
+Op welke manier de keuze wordt gemaakt is afhankelijk van de API en de data die deze teruggeeft.
+
+#### Considered Options
+
+| Forces                          | Op basis van prijs | Klant kiest zelf | Op basis van hoeveelheid resultaaten | 
+|---------------------------------|--------------------|------------------|--------------------------------------|
+| Flexibiliteit voor de gebruiker | 0                  | ++               | --                                   |
+| Makkelijk te implementeren      | -                  | ++               | ++                                   |
+| Schaalbaarheid                  | +                  | 0                | ++                                   |
+
+
+#### Decision
+
+De API wisselmethode zal gebaseerd worden op hoeveelheid resultaten. 
+Dit betekent dat de gebruiker niks hoeft te kiezen en krijgt altijd de meest relevante resultaten.
 
 #### Consequences
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not
-> just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them
-> affect the team and project in the future.
+De keuze voor wisselmethode op basis van hoeveelheid resultaten maakt de API efficiënter en schaalbaarder door alleen de meest relevante data terug te sturen. 
+Dit vermindert echter de controle voor gebruikers, waardoor sommige verwachte gegevens mogelijk ontbreken.
 
 ### 8.5. ADR-005 TITLE
 
