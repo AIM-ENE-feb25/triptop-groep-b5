@@ -20,7 +20,7 @@ Voor de trip top casus.
 | Frontend             | Verzamelt input van gebruiker, toont kaarten, trips en feedback         |
 | Backend              | Verwerkt verzoeken van frontend, bevat business logica, valideert input |
 | Database             | Slaat gebruikersdata, routes en reserveringen op                        |
-| Routeplanner Service | Externe API voor het genereren van routes tussen locaties               |
+| GoogleMaps API       | Externe API voor het genereren van routes tussen locaties               |
 | Overnachting Service | Externe API voor het boeken van hotels/overnachtingen                   |
 | Uber Service         | Externe API voor vervoer                                                |
 | Opentable API        | Externe API voor restaurantreserveringen                                |
@@ -35,19 +35,19 @@ Voor de trip top casus.
 - Information Hiding
 
 ```java
-interface RouteplannerService {
+interface GoogleMapsService {
   MapImage getMap(List<Location> route);
 }
 
-interface BookingService {
+interface OvernachtingService {
   BookingResponse searchHotels(SearchQuery query);
 }
 
-interface VervoerService {
+interface UberService {
   RideOptions getRides(Location from, Location to);
 }
 
-interface RestaurantService {
+interface OpentableService {
   RestaurantOptions getRestaurants(Location location);
   ReservationResponse reserve(Restaurant r);
 }

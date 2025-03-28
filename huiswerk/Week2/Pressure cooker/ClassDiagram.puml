@@ -1,0 +1,61 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Reiziger {
+  - id: UUID
+  - naam: String
+  - email: String
+  + planTrip(data: TripData): void
+}
+
+class Frontend {
+  + toontKaart()
+  + verzameltInput()
+  + toontFeedback()
+}
+
+class Backend {
+  + verwerktVerzoek()
+  + valideertInput()
+  + handeltBusinessLogicaAf()
+}
+
+class Database {
+  + slaatDataOp()
+  + laadtData()
+}
+
+class OvernachtingService {
+  + boektHotels()
+  + toontBeschikbaarheid()
+}
+
+class UberService {
+  + regeltVervoer()
+}
+
+class OpentableAPI {
+  + reserveertRestaurant()
+  + toontRestaurants()
+}
+
+class IdentityProvider {
+  + valideertLogin()
+  + geeftTokenTerug()
+}
+
+class GoogleMapsService {
+  + toontKaart()
+  + berekentRoute()
+}
+
+Reiziger --> Frontend
+Frontend --> Backend
+Frontend --> GoogleMapsService
+Backend --> Database
+Backend --> OvernachtingService
+Backend --> UberService
+Backend --> OpentableAPI
+Backend --> IdentityProvider
+
+@enduml
