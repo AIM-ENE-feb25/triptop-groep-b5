@@ -1,0 +1,24 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component diagram voor de back-end container en externe communicatie
+
+Container(frontend, "Front-end", "React", "Stuurt gebruikersverzoeken en praat direct met publieke APIs waar geen authenticatie nodig is.")
+
+Container_Boundary(backend, "Back-end Container") {
+    Component(apiController, "API Controller", "Spring REST Controller", "Ontvangt en verwerkt API-aanvragen vanuit de front-end.")
+    Component(authService, "Auth Service", "Spring Service", "Behandelt authenticatie en communiceert met veilige externe APIs.")
+}
+
+System_Ext(publicApi, "Publieke API", "Openbare data, toegankelijk zonder authenticatie. Kan direct benaderd worden vanuit de browser.")
+System_Ext(secureApi, "Beveiligde Externe API", "Vereist geheime sleutels en server-authenticatie. Niet toegankelijk vanuit de front-end.")
+
+Rel(frontend, apiController, "Stuurt gebruikersacties en formulieren door", "JSON/HTTPS")
+Rel(frontend, publicApi, "Leest publieke data direct", "HTTPS")
+
+Rel(apiController, authService, "Roept aan voor authenticatiecontrole")
+
+Rel(authService, secureApi, "Beveiligt communicatie met gevoelige APIs", "HTTPS/API Key")
+
+SHOW_LEGEND()
+@enduml
