@@ -365,6 +365,35 @@ Accepted
 Dit zorgt ervoor dat de database elke keer opnieuw wordt opgebouwd en er geen data wordt opgeslagen.
 Voor productie is dit niet handig, maar voor een prototype is dit prima.
  
+### 8.6. ADR-005 Pattern keuze
+
+#### Context
+
+Tijdens de ontwikkeling van de applicatie moeten we minimaal 3 patterns gebruiken.
+Er zijn vijf patterns die we kunnen gebruiken.
+
+#### Considered Options
+
+| Forces                              | State | Strategy | Adapter | Facade | Factory Method |
+|-------------------------------------|-------|----------|---------|--------|----------------|
+| Makkelijkheid implementatie         | +     | ++       | +       | ++     | -              |
+| Flexibiliteit                       | ++    | +        | -       | 0      | +              |
+| Documentatie                        | 0     | +        | +       | ++     | -              |
+
+#### Decision
+
+We hebben gekozen om gebruik te gaan maken van de Strategy, Adapter en Facade patterns.
+
+#### Status
+
+Accepted
+
+#### Consequences
+
+Dit zorgt ervoor dat de code makkelijker te onderhouden is en dat er minder code herhaald hoeft te worden.
+Het zorgt er ook voor dat de code makkelijker te begrijpen is voor andere developers.
+Het kan zijn dat het later blijkt dat een pattern niet nodig is, of een ander pattern beter is. Deze keuze kan altijd nog aangepast worden.
+
 ### 8.5. ADR-005 TITLE
 
 > [!TIP]
