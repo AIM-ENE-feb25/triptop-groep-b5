@@ -9,7 +9,7 @@ class GatewayController {
     + handleRequest()
 }
 
-class GatewayService implements GatewayServicePort {
+class GatewayService{
     + boolean hasAccessToLegacyApi(String userId)
 }
 
@@ -17,8 +17,8 @@ class ExterneApiService {
     + communicateWithExternalApi()
 }
 
-GatewayController --> GatewayServicePort : uses
-GatewayServicePort ...> GatewayService : implements
-GatewayService ..> ExterneApiService : uses
+GatewayController --> GatewayServicePort
+GatewayService ..> GatewayServicePort
+GatewayService ..> ExterneApiService
 
 @enduml
