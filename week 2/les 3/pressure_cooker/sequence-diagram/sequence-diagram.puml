@@ -1,0 +1,24 @@
+@startuml
+
+actor Gebruiker
+
+autonumber
+
+participant Controller as "Controller:\nSpring REST Controller"
+participant GatewayService as "GatewayService:\nSpring service"
+participant Wiremock as "Wiremock:\nMock service"
+participant ExternalAPIService as "ExternalAPIService:\nSpring service"
+participant ExternalAPI as "ExternalAPI:\nExternal System"
+
+Gebruiker -> Controller: doeAanroep(data)
+Controller -> GatewayService: stuurData(data)
+GatewayService -> Wiremock: controleerGebruiker(data)
+Wiremock --> GatewayService: token
+GatewayService -> ExternalAPIService: stuurDataNaarExterneAPI(data)
+ExternalAPIService -> ExternalAPI: verzend(data)
+ExternalAPI --> ExternalAPIService: antwoord
+ExternalAPIService --> GatewayService: antwoord
+GatewayService --> Controller: antwoord
+Controller --> Gebruiker: resultaat
+
+@enduml
