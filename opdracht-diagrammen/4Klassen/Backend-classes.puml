@@ -44,10 +44,6 @@ class ReisService {
     List<Hotel> getHotels();
 }
 
-class ExterneApiService {
-    void communicateWithExternalApi();
-}
-
 ' CONTROLLER->SERVICE
 AuthController --> AuthServicePort: -authService
 GatewayController --> AuthServicePort: -authService
@@ -57,7 +53,6 @@ BestellingController --> ReisService: -reisService
 BestellingController --> AuthServicePort: -authService
 GatewayController --> GatewayServicePort: -gatewayService
 GatewayServicePort <|.. GatewayService
-GatewayService --> ExterneApiService: -externeApiService
 
 ' ADAPTERS
 interface AuthAdapter {
