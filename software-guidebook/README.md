@@ -310,7 +310,7 @@ Datum: 2025-03-27
 
 #### Status
 
-In-Review
+Accepted
 
 #### Context
 
