@@ -22,7 +22,7 @@ class GatewayController {
 
 ' SERVICE
 
-interface IAuthService {
+interface AuthServicePort {
     +UserAccessInfo authorizeUser(String username, String password)
     +UserAccessInfo authorizeUser(String token);
 }
@@ -32,12 +32,12 @@ class AuthService {
     +UserAccessInfo authorizeUser(String token);
 }
 
-interface IGatewayService {
-    +boolean hasAccessToLegacyApi(String userId);
+interface GatewayServicePort {
+    +boolean hasAccessToLegacyApi(String rol);
 }
 
 class GatewayService {
-    +boolean hasAccessToLegacyApi(String userId);
+    +boolean hasAccessToLegacyApi(String rol);
 }
 
 class ReisService {
@@ -49,14 +49,14 @@ class ExterneApiService {
 }
 
 ' CONTROLLER->SERVICE
-AuthController --> IAuthService: -authService
-GatewayController --> IAuthService: -authService
-IAuthService <|.. AuthService
+AuthController --> AuthServicePort: -authService
+GatewayController --> AuthServicePort: -authService
+AuthServicePort <|.. AuthService
 ReisController --> ReisService: -reisService
 BestellingController --> ReisService: -reisService
-BestellingController --> IAuthService: -authService
-GatewayController --> IGatewayService: -gatewayService
-IGatewayService <|.. GatewayService
+BestellingController --> AuthServicePort: -authService
+GatewayController --> GatewayServicePort: -gatewayService
+GatewayServicePort <|.. GatewayService
 GatewayService --> ExterneApiService: -externeApiService
 
 ' ADAPTERS
