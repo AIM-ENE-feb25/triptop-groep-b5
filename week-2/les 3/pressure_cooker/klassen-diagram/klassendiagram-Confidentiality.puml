@@ -1,0 +1,31 @@
+@startuml
+interface GatewayServicePort {
+    + boolean hasAccessToLegacyApi(String Rol)
+}
+
+interface AuthServicePort {
+    + String authorize(String token)
+    + String authenticate(String username, String password)
+}
+
+class GatewayController {
+    - GatewayServicePort gatewayServicePort
+    - AuthServicePort authServicePort
+    - AuthorizationServicePort authorizationServicePort
+    + GatewayController(GatewayServicePort gatewayServicePort, AuthServicePort authServicePort, AuthorizationServicePort authorizationServicePort)
+    + handleRequest(String token)
+}
+
+class GatewayService implements GatewayServicePort {
+    + boolean hasAccessToLegacyApi(String Rol)
+}
+
+class AuthService implements AuthServicePort {
+    + String authenticate(String username, String password)
+    + String authorize(String token)
+}
+
+GatewayController --> GatewayServicePort
+GatewayController --> AuthServicePort
+
+@enduml

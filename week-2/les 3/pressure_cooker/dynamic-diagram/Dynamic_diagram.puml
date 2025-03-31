@@ -1,0 +1,31 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+title Dynamic diagram voor de backend container voor de "Confidentiality" ontwerpvraag
+
+actor User
+
+Container(webapp, "Front-end", "JS/React", "Behandelt veilige communicatie met verouderde externe APIs.")
+Container_Boundary(apiComponents, "API Application Container") {
+    Component(authService, "AuthService", "Spring Security", "Autorizatie en authenticatie van gebruikers.")
+    Component(controller, "Gateway Controller", "Spring REST Controller", "Behandelt verzoeken van verouderde API's.")
+    Component(service, "Gateway Service", "Spring Service", "Behandeld de communicatie met de verouderde API's.")
+}
+
+System_Ext(wiremock, "WireMock", "Simuleert de authenticatie- en autorisatieservice voor testdoeleinden")
+System_Ext(externalApi, "Verouderde Externe API", "Een verouderde API zonder beveiliging")
+
+User --> webapp : 1. Verstuurt verzoek naar verouderde API
+webapp --> controller : 2. Verstuurt verzoek naar verouderde API
+controller --> authService : 3. Verstuurt login-verzoek
+authService --> wiremock : 4. Valideert gebruikersgegevens en genereert token
+authService --> controller : 5. Retourneert token
+controller --> service : 6. Delegeert naar Gateway Service
+service --> externalApi : 7. Communiceert met de externe API
+externalApi --> service : 8. Retourneert antwoord
+service --> controller : 9. Retourneert antwoord
+controller --> webapp : 10. Retourneert antwoord
+webapp --> User : 11. Toont resultaat
+
+SHOW_LEGEND()
+@enduml
