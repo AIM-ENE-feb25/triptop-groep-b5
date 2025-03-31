@@ -1,0 +1,100 @@
+@startuml
+'left to right direction
+
+' CONTROLLERS
+class AuthController {
+    +UserAccessInfo login(String username, String password);
+}
+
+class ReisController {
+    void addTripComponents();
+    void getFullTrip();
+}
+
+class BestellingController {
+    void getOrderOverview();
+    void payOrder();
+}
+
+class GatewayController {
+    void handleRequest(String token);
+}
+
+' SERVICE
+
+interface AuthServicePort {
+    +UserAccessInfo authorizeUser(String username, String password)
+    +UserAccessInfo authorizeUser(String token);
+}
+
+class AuthService {
+    +UserAccessInfo authorizeUser(String username, String password)
+    +UserAccessInfo authorizeUser(String token);
+}
+
+interface GatewayServicePort {
+    +boolean hasAccessToLegacyApi(String rol);
+}
+
+class GatewayService {
+    +boolean hasAccessToLegacyApi(String rol);
+}
+
+class ReisService {
+    List<Hotel> getHotels();
+}
+
+class ExterneApiService {
+    void communicateWithExternalApi();
+}
+
+' CONTROLLER->SERVICE
+AuthController --> AuthServicePort: -authService
+GatewayController --> AuthServicePort: -authService
+AuthServicePort <|.. AuthService
+ReisController --> ReisService: -reisService
+BestellingController --> ReisService: -reisService
+BestellingController --> AuthServicePort: -authService
+GatewayController --> GatewayServicePort: -gatewayService
+GatewayServicePort <|.. GatewayService
+GatewayService --> ExterneApiService: -externeApiService
+
+' ADAPTERS
+interface AuthAdapter {
+    +String getToken(String username, String password)
+    +UserAccessInfo getRole(String username, String token)
+}
+
+class WireMockAdapter {
+    +String getToken(String username, String password)
+    +UserAccessInfo getRole(String username, String token)
+}
+
+AuthService --> AuthAdapter: -authAdapter
+AuthAdapter <|.. WireMockAdapter
+
+interface HotelAdapter {
+    +List<Hotel>getHotels(string city, Date arrivalDate, Date departureDate, Double price);
+}
+
+class BookingApiAdapter {
+    +List<Hotel>getHotels(string city, Date arrivalDate, Date departureDate, Double price);
+}
+
+class TripAdvisorApiAdapter {
+    +List<Hotel>getHotels(string city, Date arrivalDate, Date departureDate, Double price);
+}
+
+ReisService --> HotelAdapter: -hotelAdapter
+HotelAdapter <|.. BookingApiAdapter
+HotelAdapter <|.. TripAdvisorApiAdapter
+
+
+class UserAccessInfo {
+    +@JsonIgnore boolean access;
+    +String role;
+}
+
+AuthService --> UserAccessInfo
+
+@enduml
