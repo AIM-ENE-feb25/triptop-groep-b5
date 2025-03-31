@@ -1,5 +1,7 @@
 package bestelsysteem;
 
+import bestelsysteem.adapter.TripAdvisorApiAdapter;
+import bestelsysteem.model.Hotel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,5 +24,8 @@ public class Application {
         LOG.info("STARTING THE APPLICATION");
         SpringApplication.run(Application.class, args);
         LOG.info("APPLICATION FINISHED");
+
+        TripAdvisorApiAdapter tripAdvisorApiAdapter = new TripAdvisorApiAdapter();
+        List<Hotel> hotels = tripAdvisorApiAdapter.getHotels();
     }
 }
