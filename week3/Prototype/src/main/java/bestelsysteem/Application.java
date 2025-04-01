@@ -1,7 +1,9 @@
 package bestelsysteem;
 
+import bestelsysteem.adapter.BookingApiAdapter;
 import bestelsysteem.adapter.TripAdvisorApiAdapter;
 import bestelsysteem.model.Hotel;
+import bestelsysteem.service.HotelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +27,10 @@ public class Application {
         SpringApplication.run(Application.class, args);
         LOG.info("APPLICATION FINISHED");
 
-        TripAdvisorApiAdapter tripAdvisorApiAdapter = new TripAdvisorApiAdapter();
-        List<Hotel> hotels = tripAdvisorApiAdapter.getHotels();
+        HotelService hotelService = new HotelService();
+        List<Hotel> hotels = hotelService.getHotels();
+        for (Hotel hotel : hotels) {
+            System.out.println(hotel.getName());
+        }
     }
 }

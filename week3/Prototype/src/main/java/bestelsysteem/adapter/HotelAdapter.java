@@ -5,6 +5,7 @@ import bestelsysteem.model.Hotel;
 import java.util.List;
 
 public interface HotelAdapter {
-    List<Hotel> getHotels();
+    String getLocation(String location);
+    List<Hotel> getHotels(String locationCode);
     String getApiName();
 }
