@@ -18,10 +18,13 @@ Container(front, "Frontend", "JS/React", "Laat de pagina zien aan de gebruiker."
 Container_Boundary(back, "Backend", "Container Backend FSWD"){
     Component(rctrl, "ReisController", "Java/Springboot Controller", "Opvragen van hotels")
     Component(hotelsrvc, "HotelService", "Java/Springboot Service", "Zorgt voor welke hotels er opgevraagd worden")
-    Component(hoteladpt, "HotelAdapter", "Java/Springboot Interface", "Heeft de methodes voor het opvragen van hotels")
-    Component(bookingadpt, "BookingApiAdapter", "Java/Springboot", "Vertaal de Booking.com api naar een interface", $tags="Geimplementeerde adapters")
-    Component(tripadpt, "TripAdvisorApiAdapter", "Java/Springboot", "Vertaal de TripAdvisor api naar een interface", $tags="Geimplementeerde adapters")
-}
+    Boundary(hoteladpt, "HotelAdapter", "Java/Springboot Interface"){
+        Component(bookingadpt, "BookingApiAdapter", "Java/Springboot", "Vertaal de Booking.com api naar een interface", $tags="Geimplementeerde adapters")
+         Component(tripadpt, "TripAdvisorApiAdapter", "Java/Springboot", "Vertaal de TripAdvisor api naar een interface", $tags="Geimplementeerde adapters")
+     }
+    }
+
+
 
 System_Ext(bookingApi, "Booking.com api service", "Geeft een lijst met hotels terug.")
 System_Ext(tripadvisorApi, "TripAdvisor api service", "Geeft een lijst met hotels terug.")

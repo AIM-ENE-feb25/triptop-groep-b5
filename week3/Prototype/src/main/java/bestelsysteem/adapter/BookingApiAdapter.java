@@ -1,53 +1,25 @@
 package bestelsysteem.adapter;
 
+import bestelsysteem.external.BookingDriver;
 import bestelsysteem.model.Hotel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class BookingApiAdapter implements HotelAdapter {
+    @Autowired
+    BookingDriver bookingDriver;
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    @Value("${booking.api.key}")
-    private String apiKey;
 
     @Override
     public String getLocation(String location) {
-        String encodedLocation = null;
         try {
-            encodedLocation = URLEncoder.encode(location, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination?query="+encodedLocation))
-                .header("x-rapidapi-key", apiKey)
-                .header("x-rapidapi-host", "booking-com15.p.rapidapi.com")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = null;
-        try {
-            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            JsonNode rootNode = objectMapper.readTree(response.body());
+            JsonNode rootNode = objectMapper.readTree(bookingDriver.getLocation(location));
             JsonNode dataNode = rootNode.path("data").path(0).path("dest_id");
 
             return dataNode.asText();
@@ -60,34 +32,16 @@ public class BookingApiAdapter implements HotelAdapter {
     @Override
     public List<Hotel> getHotels(String locationCode) {
         List<Hotel> hotels = new ArrayList<>();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id="+ locationCode +"&search_type=CITY&arrival_date=2025-05-01&departure_date=2025-05-10"))
-                .header("x-rapidapi-key", apiKey)
-                .header("x-rapidapi-host", "booking-com15.p.rapidapi.com")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = null;
+
         try {
-            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        //System.out.println(response.body());
-        try {
-            JsonNode rootNode = objectMapper.readTree(response.body());
+            JsonNode rootNode = objectMapper.readTree(bookingDriver.getHotels(locationCode));
             JsonNode dataNode = rootNode.path("data").path("hotels");
             for(JsonNode node : dataNode) {
                 hotels.add(new Hotel(node.path("property").get("name").asText()));
-                //System.out.println(node.path("property").get("name"));
             }
-            //System.out.println(hotels);
         } catch (Exception e) {
             throw new RuntimeException("Failed to map response to Hotel", e);
         }
-
-        //System.out.println(hotels.size());
         return hotels;
     }
 

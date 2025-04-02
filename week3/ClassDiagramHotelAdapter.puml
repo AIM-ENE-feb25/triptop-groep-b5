@@ -13,7 +13,7 @@ interface HotelAdapter {
 
 class BookingApiAdapter {
     -ObjectMapper objectMapper
-    -String apiKey;
+    -BookingDriver bookingDriver
     +String getLocation(String location)
     +List<Hotel> getHotels(String locationCode)
     +String getApiName()
@@ -21,15 +21,37 @@ class BookingApiAdapter {
 
 class TripAdvisorApiAdapter {
     -ObjectMapper objectMapper
-    -String apiKey;
+    -TripadvisorDriver tripadvisorDriver
     +String getLocation(String location)
     +List<Hotel> getHotels(String locationCode)
     +String getApiName()
 }
 
+interface HotelDriver {
+    +String getLocation(String location)
+    +String getHotels(String encodedLocation)
+}
+
+class TripadvisorDriver {
+    -String apiKey
+    +String getLocation(String location)
+    +String getHotels(String encodedLocation)
+}
+
+class BookingDriver {
+    -String apiKey
+    +String getLocation(String location)
+    +String getHotels(String encodedLocation)
+}
+
+
 ReisService --> HotelAdapter
+HotelDriver <|.. TripadvisorDriver
+HotelDriver <|.. BookingDriver
 HotelAdapter <|.. BookingApiAdapter
 HotelAdapter <|.. TripAdvisorApiAdapter
+BookingApiAdapter --> BookingDriver
+TripAdvisorApiAdapter --> TripadvisorDriver
 
 
 @enduml
