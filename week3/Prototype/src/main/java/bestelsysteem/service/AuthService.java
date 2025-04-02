@@ -20,7 +20,10 @@ public class AuthService implements AuthServicePort {
     String token = authAdapter.getToken(userAuthorization);
     userAuthorization.setToken(token);
     userAuthorization.setApplication("triptop");
-    return authAdapter.getRole(userAuthorization);
+
+    UserAccessInfo userAccessInfo = authAdapter.getRole(userAuthorization);
+    userAccessInfo.setToken(token);
+    return userAccessInfo;
   }
 
   @Override

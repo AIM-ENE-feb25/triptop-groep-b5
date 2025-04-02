@@ -24,8 +24,6 @@ public class AuthController {
       throw new RuntimeException("Unauthorized");
     }
 
-    userAccessInfo.setToken("abc");
-
     return userAccessInfo;
   }
 }
