@@ -10,7 +10,7 @@ left to right direction
 SHOW_PERSON_OUTLINE()
 
 AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
-
+AddElementTag("Geimplementeerde adapters", $bgColor="Green", $fontColor="White", $borderColor="LightGreen")
 title Component diagram voor de backend container voor de "Modularity" ontwerpvraag
 
 Container(front, "Frontend", "JS/React", "Laat de pagina zien aan de gebruiker.")
@@ -19,6 +19,8 @@ Container_Boundary(back, "Backend", "Container Backend FSWD"){
     Component(rctrl, "ReisController", "Java/Springboot Controller", "Opvragen van hotels")
     Component(hotelsrvc, "HotelService", "Java/Springboot Service", "Zorgt voor welke hotels er opgevraagd worden")
     Component(hoteladpt, "HotelAdapter", "Java/Springboot Interface", "Heeft de methodes voor het opvragen van hotels")
+    Component(bookingadpt, "BookingApiAdapter", "Java/Springboot", "Vertaal de Booking.com api naar een interface", $tags="Geimplementeerde adapters")
+    Component(tripadpt, "TripAdvisorApiAdapter", "Java/Springboot", "Vertaal de TripAdvisor api naar een interface", $tags="Geimplementeerde adapters")
 }
 
 System_Ext(bookingApi, "Booking.com api service", "Geeft een lijst met hotels terug.")
@@ -28,8 +30,10 @@ System_Ext(tripadvisorApi, "TripAdvisor api service", "Geeft een lijst met hotel
 Rel(front, rctrl, "Authenticates user with", "JSON/HTTP/HTTPS")
 Rel(rctrl, hotelsrvc, "gebruikt")
 Rel(hotelsrvc, hoteladpt, "gebruikt")
-Rel(hoteladpt, bookingApi, "Krijgt een lijst met hotels terug van", "JSON/HTTP/HTTPS")
-Rel(hoteladpt, tripadvisorApi, "Krijgt een lijst met hotels terug van", "JSON/HTTP/HTTPS")
+Rel(hoteladpt, bookingadpt, "word geimplementeerd door")
+Rel(hoteladpt, tripadpt, "word geimplementeerd door")
+Rel(bookingadpt, bookingApi, "Krijgt een lijst met hotels terug van", "JSON/HTTP/HTTPS")
+Rel(tripadpt, tripadvisorApi, "Krijgt een lijst met hotels terug van", "JSON/HTTP/HTTPS")
 
 SHOW_LEGEND()
 
