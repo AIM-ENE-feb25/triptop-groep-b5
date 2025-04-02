@@ -1,0 +1,35 @@
+@startuml
+
+class ReisService {
+    -List<HotelAdapter> hotelAdapters
+    +List<Hotel> getHotels(String locatie)
+}
+
+interface HotelAdapter {
+    +String getLocation(String location)
+    +List<Hotel> getHotels(String locationCode)
+    +String getApiName()
+}
+
+class BookingApiAdapter {
+    -ObjectMapper objectMapper
+    -String apiKey;
+    +String getLocation(String location)
+    +List<Hotel> getHotels(String locationCode)
+    +String getApiName()
+}
+
+class TripAdvisorApiAdapter {
+    -ObjectMapper objectMapper
+    -String apiKey;
+    +String getLocation(String location)
+    +List<Hotel> getHotels(String locationCode)
+    +String getApiName()
+}
+
+ReisService --> HotelAdapter
+HotelAdapter <|.. BookingApiAdapter
+HotelAdapter <|.. TripAdvisorApiAdapter
+
+
+@enduml
