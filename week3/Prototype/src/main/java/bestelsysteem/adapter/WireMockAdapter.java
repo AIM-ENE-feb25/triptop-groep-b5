@@ -33,7 +33,7 @@ public class WireMockAdapter implements AuthStrategy {
 
       return objectMapper.readValue(checkAppAccessResponse, UserAccessInfo.class);
     } catch (RestClientResponseException e) {
-      throw new APICallException(new ErrorObject(e.getMessage(), e.getClass().getSimpleName(), "Authentication provider is current unavailable. Try again later."));
+      throw new APICallException(new ErrorObject(e.getMessage(), e.getClass().getSimpleName(), "Username or password is incorrect."));
     } catch (IOException e) {
       throw new APICallException(new ErrorObject(e.getMessage(), e.getClass().getSimpleName(), "Unable to get token. Try again later."));
     }
