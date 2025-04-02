@@ -26,11 +26,5 @@ public class Application {
         LOG.info("STARTING THE APPLICATION");
         SpringApplication.run(Application.class, args);
         LOG.info("APPLICATION FINISHED");
-
-        HotelService hotelService = new HotelService();
-        List<Hotel> hotels = hotelService.getHotels();
-        for (Hotel hotel : hotels) {
-            System.out.println(hotel.getName());
-        }
     }
 }

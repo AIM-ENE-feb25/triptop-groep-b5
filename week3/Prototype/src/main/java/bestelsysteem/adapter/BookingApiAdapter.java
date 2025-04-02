@@ -16,6 +16,7 @@ import java.util.List;
 
 public class BookingApiAdapter implements HotelAdapter {
     private final ObjectMapper objectMapper = new ObjectMapper();
+    String apiKey = "--";
 
     @Override
     public String getLocation(String location) {
@@ -27,7 +28,7 @@ public class BookingApiAdapter implements HotelAdapter {
         }
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination?query="+encodedLocation))
-                .header("x-rapidapi-key", "--")
+                .header("x-rapidapi-key", apiKey)
                 .header("x-rapidapi-host", "booking-com15.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -56,7 +57,7 @@ public class BookingApiAdapter implements HotelAdapter {
         List<Hotel> hotels = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id="+ locationCode +"&search_type=CITY&arrival_date=2025-05-01&departure_date=2025-05-10"))
-                .header("x-rapidapi-key", "--")
+                .header("x-rapidapi-key", apiKey)
                 .header("x-rapidapi-host", "booking-com15.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();

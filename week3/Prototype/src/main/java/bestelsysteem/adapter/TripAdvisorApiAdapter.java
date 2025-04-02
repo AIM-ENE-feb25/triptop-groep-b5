@@ -17,12 +17,13 @@ import java.util.List;
 @Component
 public class TripAdvisorApiAdapter implements HotelAdapter {
     private final ObjectMapper objectMapper = new ObjectMapper();
+    String apiKey = "--";
 
     @Override
     public String getLocation(String location) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://tripadvisor16.p.rapidapi.com/api/v1/hotels/searchLocation?query=Amsterdam%2C%20Netherlands"))
-                .header("x-rapidapi-key", "--")
+                .header("x-rapidapi-key", apiKey)
                 .header("x-rapidapi-host", "tripadvisor16.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -50,8 +51,8 @@ public class TripAdvisorApiAdapter implements HotelAdapter {
     public List<Hotel> getHotels(String locationCode) {
         List<Hotel> hotels = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://tripadvisor16.p.rapidapi.com/api/v1/hotels/searchHotels?geoId="+ locationCode +"&checkIn=2025-04-01&checkOut=2025-04-06"))
-                .header("x-rapidapi-key", "--")
+                .uri(URI.create("https://tripadvisor16.p.rapidapi.com/api/v1/hotels/searchHotels?geoId="+ locationCode +"&checkIn=2025-05-01&checkOut=2025-05-10"))
+                .header("x-rapidapi-key", apiKey)
                 .header("x-rapidapi-host", "tripadvisor16.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -63,15 +64,13 @@ public class TripAdvisorApiAdapter implements HotelAdapter {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println(response.body());
         try {
             JsonNode rootNode = objectMapper.readTree(response.body());
             JsonNode dataNode = rootNode.path("data").path("data");
             for(JsonNode node : dataNode) {
                 hotels.add(new Hotel(node.get("title").asText()));
-                //System.out.println(node.get("title"));
             }
-            //System.out.println(hotels);
+
         } catch (Exception e) {
             throw new RuntimeException("Failed to map response to Hotel", e);
         }

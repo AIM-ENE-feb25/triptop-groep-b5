@@ -15,8 +15,7 @@ public class HotelService {
     HotelAdapter TripAdvisorApiAdapter;
     HotelAdapter bookingApiAdapter;
 
-    public List<Hotel> getHotels() {
-        String locatie = "Amsterdam, Netherlands";
+    public List<Hotel> getHotels(String locatie) {
         TripAdvisorApiAdapter = new TripAdvisorApiAdapter();
         bookingApiAdapter = new BookingApiAdapter();
         List<Hotel> hotels = TripAdvisorApiAdapter.getHotels(TripAdvisorApiAdapter.getLocation(locatie));
