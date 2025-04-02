@@ -1,0 +1,23 @@
+@startuml
+actor AuthService
+
+participant AuthAdapter
+participant WireMockAdapter
+'participant APICallException
+'participant ErrorObject
+database "WireMock"
+
+AuthService -> AuthService: userAuthorization = \nnew userAuthorization(username, password);
+AuthService -> AuthAdapter: getToken(userAuthorization)
+AuthAdapter -> WireMockAdapter: getToken(userAuthorization)
+WireMockAdapter -> "WireMock": request(url, userAuthorization)
+WireMockAdapter <- "WireMock": String token
+AuthService <- WireMockAdapter: String token
+
+AuthService -> AuthAdapter: getRole(userAuthor.ization, token)
+AuthAdapter -> WireMockAdapter: getRole(userAuthorization, token)
+WireMockAdapter -> "WireMock": request(url, userAuthorization, token)
+WireMockAdapter <- "WireMock": UserAccessInfo userAccessInfo
+AuthService <- WireMockAdapter: UserAccessInfo userAccessInfo
+
+@enduml

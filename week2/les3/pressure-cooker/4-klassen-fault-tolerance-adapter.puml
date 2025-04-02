@@ -1,0 +1,42 @@
+@startuml
+'left to right direction
+
+class AuthService {
+    +UserAccessInfo getUserInfo(String username, String password)
+}
+
+interface AuthenticationProvider {
+    +UserAccessInfo getUserInfo(String username, String password)
+}
+
+AuthService --> AuthenticationProvider: -authenticationProvider
+
+class WireMockAdapter {
+    +UserAccessInfo getUserInfo(String username, String password)
+}
+
+AuthenticationProvider <|.. WireMockAdapter
+
+class WireMockAPI {
+    +String login(String username, String password)
+    +String getRole(String username, String application, String token)
+}
+
+WireMockAdapter --> WireMockAPI: -wireMockAPI
+
+class ErrorObject {
+    +String message
+    +String type
+    +String friendlyMessage
+}
+
+class APICallException {
+    +APICallException(ErrorObject error)
+}
+
+APICallException --> ErrorObject: -error
+
+AuthPortWireMock --> APICallException: throws
+
+
+@enduml
