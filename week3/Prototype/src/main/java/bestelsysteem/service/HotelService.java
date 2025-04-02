@@ -12,24 +12,25 @@ import java.util.List;
 
 @Service
 public class HotelService {
-    HotelAdapter TripAdvisorApiAdapter;
-    HotelAdapter bookingApiAdapter;
+
+    @Autowired
+    private List<HotelAdapter> hotelAdapters;
 
     public List<Hotel> getHotels(String locatie) {
-        TripAdvisorApiAdapter = new TripAdvisorApiAdapter();
-        bookingApiAdapter = new BookingApiAdapter();
-        List<Hotel> hotels = TripAdvisorApiAdapter.getHotels(TripAdvisorApiAdapter.getLocation(locatie));
-        List<Hotel> hotels2 = bookingApiAdapter.getHotels(bookingApiAdapter.getLocation(locatie));
+        List<Hotel> bestHotels = new ArrayList<>();
+        String bestApiName = "";
 
-        System.out.println("TripAdvisor hotels: " + hotels.size());
-        System.out.println("Booking hotels: " + hotels2.size());
-        if(hotels.size() > hotels2.size()) {
-            System.out.println(TripAdvisorApiAdapter.getApiName());
-            return hotels;
-        } else {
-            System.out.println(bookingApiAdapter.getApiName());
-            return hotels2;
+        for (HotelAdapter adapter : hotelAdapters) {
+            List<Hotel> hotels = adapter.getHotels(adapter.getLocation(locatie));
+            System.out.println(adapter.getApiName() + " hotels: " + hotels.size());
+
+            if (hotels.size() > bestHotels.size()) {
+                bestHotels = hotels;
+                bestApiName = adapter.getApiName();
+            }
         }
-    }
 
+        System.out.println(bestApiName);
+        return bestHotels;
+    }
 }

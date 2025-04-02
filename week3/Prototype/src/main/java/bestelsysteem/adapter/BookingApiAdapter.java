@@ -3,6 +3,8 @@ package bestelsysteem.adapter;
 import bestelsysteem.model.Hotel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,9 +16,12 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class BookingApiAdapter implements HotelAdapter {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    String apiKey = "--";
+
+    @Value("${booking.api.key}")
+    private String apiKey;
 
     @Override
     public String getLocation(String location) {

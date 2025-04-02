@@ -17,7 +17,9 @@ import java.util.List;
 @Component
 public class TripAdvisorApiAdapter implements HotelAdapter {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    String apiKey = "--";
+
+    @Value("${tripadvisor.api.key}")
+    private String apiKey;
 
     @Override
     public String getLocation(String location) {
