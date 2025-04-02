@@ -1,31 +1,30 @@
 package bestelsysteem.service;
 
-import bestelsysteem.model.LoginRequest;
-import bestelsysteem.service.port.AuthServicePort;
+import bestelsysteem.adapter.AuthAdapter;
+import bestelsysteem.model.UserAccessInfo;
+import bestelsysteem.model.UserAuthorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService implements AuthServicePort {
+  private final AuthAdapter authAdapter;
 
-    private final WireMockService wireMockService;
+  @Autowired
+  public AuthService(AuthAdapter authAdapter) {
+    this.authAdapter = authAdapter;
+  }
 
-    @Autowired
-    public AuthService(WireMockService wireMockService) {
-        this.wireMockService = wireMockService;
-    }
+  @Override
+  public UserAccessInfo authorizeUser(UserAuthorization userAuthorization) {
+    String token = authAdapter.getToken(userAuthorization);
+    userAuthorization.setToken(token);
+    userAuthorization.setApplication("triptop");
+    return authAdapter.getRole(userAuthorization);
+  }
 
-    @Override
-    public String authenticate(String username, String password) {
-        LoginRequest request = new LoginRequest();
-        request.setUsername(username);
-        request.setPassword(password);
-        var response = wireMockService.login(request);
-        return response != null ? response.getToken() : null;
-    }
-
-    @Override
-    public String authorize(String token) {
-        return wireMockService.checkAppAccess(token) ? "beheerder" : null;
-    }
+  @Override
+  public UserAccessInfo authorizeUser(String token) {
+    return null;
+  }
 }
