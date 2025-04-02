@@ -12,20 +12,19 @@ title Container diagram voor het triptop systeem
 
 Person(reiziger, Reiziger, "Een persoon die een reis samen wilt stellen")
 
-System_Ext(routeplanner, "Routeplanner Service: Google Maps", "Geeft een map terug als je een locatie geeft")
+System_Ext(wiremock, "Identity Provider", "Geeft een token terug als je een geldige gebruikersnaam en wachtwoord geeft. WireMock")
 
 System_Boundary("key_boundary", "Ans", $tags="") {
     Container(frontend, "Frontend", $techn="JS/React", $descr="Laat de pagina zien aan de gebruiker.", $tags="", $link="")
     Container(backend, "Backend", $techn="Java/Spring Boot", $descr="Laat locaties op die gekozen worden op de route door de gebruiker.", $tags="", $link="")
-    ContainerDb(db, "Database", $techn="SQL/MySQL", $descr="Slaat informatie op vanuit de backend.", $tags="", $link="")
  }
 
-reiziger -> frontend : 1. Voegt een punt toe aan de route
-frontend -> backend : 2. Stuurt het punt op
-backend -> db : 3. Slaat het nieuwe punt op
-backend -> routeplanner : 4. Haalt de nieuwe route op
-routeplanner -> frontend : 5. Returnt de nieuwe map
-frontend -> reiziger : 6. Laat nieuwe map zien
+reiziger --> frontend : 1. Voert gebruikersnaam en wachtwoord in
+frontend --> backend : 2. Logt in met gebruikersnaam en wachtwoord
+backend --> wiremock : 3. Geeft gegevens mee
+wiremock --> backend : 4. Krijgt token of foutmelding terug
+backend --> frontend : 5a. Stuurt token terug, of
+backend --> frontend : 5b. Stuurt foutmelding terug
 
 SHOW_LEGEND()
 
