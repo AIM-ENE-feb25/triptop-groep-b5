@@ -1,7 +1,9 @@
 package bestelsysteem.service.port;
 
-public interface AuthServicePort {
-    String authenticate(String username, String password);
-    String authorize(String token);
-}
+import bestelsysteem.model.UserAccessInfo;
+import bestelsysteem.model.UserAuthorization;
 
+public interface AuthServicePort {
+    UserAccessInfo authorizeUser(UserAuthorization userAuthorization);
+    UserAccessInfo authorizeUser(String token);
+}

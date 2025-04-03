@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/checkAppAccess",
+    "queryParameters": {
+      "token": {
+        "matches": ".*"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": {
+          "expression": "$.username",
+          "matches": "^(edevries|dvandijk|sbakker|sdegraaf|tvos)$"
+        }
+      },
+      {
+        "matchesJsonPath": {
+          "expression": "$.application",
+          "equalTo": "triptop"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "access": "allowed",
+      "role": "beheerder"
+    }
+  }
+}
+

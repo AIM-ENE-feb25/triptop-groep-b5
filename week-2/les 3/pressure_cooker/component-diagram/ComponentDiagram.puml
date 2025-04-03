@@ -21,4 +21,5 @@ Rel(controller, service, "Delegeert naar Gateway Service")
 Rel(service, externalApi, "Communiceert met de externe API", "HTTP/JSON")
 
 SHOW_LEGEND()
+
 @enduml

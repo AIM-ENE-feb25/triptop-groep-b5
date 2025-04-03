@@ -1,8 +1,11 @@
 package bestelsysteem.service;
 
 import bestelsysteem.adapter.AuthAdapter;
+import bestelsysteem.exception.APICallException;
+import bestelsysteem.model.ErrorObject;
 import bestelsysteem.model.UserAccessInfo;
 import bestelsysteem.model.UserAuthorization;
+import bestelsysteem.service.port.AuthServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +23,25 @@ public class AuthService implements AuthServicePort {
     String token = authAdapter.getToken(userAuthorization);
     userAuthorization.setToken(token);
     userAuthorization.setApplication("triptop");
-    return authAdapter.getRole(userAuthorization);
+
+    UserAccessInfo userAccessInfo = authAdapter.getRole(userAuthorization);
+    userAccessInfo.setToken(token);
+    return userAccessInfo;
   }
 
   @Override
   public UserAccessInfo authorizeUser(String token) {
-    return null;
+    UserAuthorization userAuthorization = new UserAuthorization();
+    userAuthorization.setToken(token);
+    userAuthorization.setApplication("triptop");
+
+    UserAccessInfo userAccessInfo = authAdapter.getRole(userAuthorization);
+
+    if (userAccessInfo == null || userAccessInfo.getRole() == null) {
+      throw new APICallException(new ErrorObject("Unauthorized", "AuthException", "Invalid token or user not found."));
+    }
+
+    return userAccessInfo;
   }
+
 }

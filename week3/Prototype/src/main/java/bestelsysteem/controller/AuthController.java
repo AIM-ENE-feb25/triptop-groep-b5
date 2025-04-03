@@ -2,13 +2,16 @@ package bestelsysteem.controller;
 
 import bestelsysteem.model.UserAccessInfo;
 import bestelsysteem.model.UserAuthorization;
-import bestelsysteem.service.AuthServicePort;
+import bestelsysteem.service.port.AuthServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/auth")
 public class AuthController {
   AuthServicePort authService;
 
@@ -18,14 +21,9 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public UserAccessInfo login(@RequestBody UserAuthorization userAuthorization) {
+  public ResponseEntity<UserAccessInfo> login(@RequestBody UserAuthorization userAuthorization) {
     UserAccessInfo userAccessInfo = authService.authorizeUser(userAuthorization);
-    if (!userAccessInfo.hasAccess()) {
-      throw new RuntimeException("Unauthorized");
-    }
 
-    userAccessInfo.setToken("abc");
-
-    return userAccessInfo;
+    return ResponseEntity.ok(userAccessInfo);
   }
 }
