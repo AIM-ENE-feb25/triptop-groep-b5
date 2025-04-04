@@ -164,7 +164,9 @@ Er zijn hier een aantal voordelen voor:
 
 ### 6.2. Design Principles
 
-Zie "8.6. ADR-005 Pattern keuze"
+We hebben gekozen om zo veel mogelijk Single responsibility, Encapsulation en open close principes te gebruiken.
+
+Voor design patterns Zie "8.6. ADR-005 Pattern keuze"
 
 ## 7. Software Architecture
 
