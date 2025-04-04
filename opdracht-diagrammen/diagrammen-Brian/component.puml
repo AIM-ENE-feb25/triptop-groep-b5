@@ -1,0 +1,53 @@
+@startuml
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+left to right direction
+
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+AddElementTag("Geimplementeerde adapters", $bgColor="Green", $fontColor="White", $borderColor="LightGreen")
+AddElementTag("Geimplementeerde drivers", $bgColor="Orange", $fontColor="White", $borderColor="LightOrange")
+
+title Component diagram voor de backend container voor de "Modularity" ontwerpvraag
+
+Container(front, "Frontend", "JS/React", "Laat de pagina zien aan de gebruiker.")
+
+Container_Boundary(back, "Backend", "Container Backend FSWD"){
+    Component(rctrl, "ReisController", "Java/Springboot Controller", "Opvragen van hotels")
+    Component(hotelsrvc, "HotelService", "Java/Springboot Service", "Zorgt voor welke hotels er opgevraagd worden")
+    Boundary(hoteladpt, "HotelAdapter", "Java/Springboot Interface"){
+        Component(bookingadpt, "BookingApiAdapter", "Java/Springboot", "Vertaal de Booking.com api naar een interface", $tags="Geimplementeerde adapters")
+         Component(tripadpt, "TripAdvisorApiAdapter", "Java/Springboot", "Vertaal de TripAdvisor api naar een interface", $tags="Geimplementeerde adapters")
+     }
+
+    Boundary(hoteldrv, "hotelDriver", "Java/Springboot Interface"){
+            Component(bookingdrv, "BookingDriver", "Java/Springboot", "Haalt de gegevens op uit", $tags="Geimplementeerde drivers")
+            Component(tripdrv, "TripAdvisorDriver", "Java/Springboot", "Haalt de gegevens op uit", $tags="Geimplementeerde drivers")
+         }
+    }
+
+
+
+
+System_Ext(bookingApi, "Booking.com api service", "Geeft een lijst met hotels terug.")
+System_Ext(tripadvisorApi, "TripAdvisor api service", "Geeft een lijst met hotels terug.")
+
+
+Rel(front, rctrl, "Authenticates user with", "JSON/HTTP/HTTPS")
+Rel(rctrl, hotelsrvc, "gebruikt")
+Rel(hotelsrvc, hoteladpt, "gebruikt")
+Rel(hoteladpt, bookingadpt, "word geimplementeerd door")
+Rel(hoteladpt, tripadpt, "word geimplementeerd door")
+Rel(bookingadpt, bookingdrv, "Krijgt een lijst met hotels terug van")
+Rel(tripadpt, tripdrv, "Krijgt een lijst met hotels terug van")
+Rel(bookingdrv, bookingApi, "vraagt gegevens op uit", "JSON/HTTP/HTTPS")
+Rel(tripdrv, tripadvisorApi, "vraagt gegevens op uit", "JSON/HTTP/HTTPS")
+
+SHOW_LEGEND()
+
+@enduml
