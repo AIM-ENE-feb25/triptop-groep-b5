@@ -39,7 +39,7 @@ public class GatewayController {
     @GetMapping("/request")
     public ResponseEntity<String> handleRequest(@RequestHeader("Authorization") String token) {
         if (token == null || token.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Missing, invalid, or expired Authorization token.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You must be logged in to access.");
         }
 
         UserAccessInfo userAccessInfo = new UserAccessInfo();
