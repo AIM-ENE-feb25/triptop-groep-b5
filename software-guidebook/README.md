@@ -404,7 +404,7 @@ Accepted
 Dit zorgt ervoor dat de database elke keer opnieuw wordt opgebouwd en er geen data wordt opgeslagen.
 Voor productie is dit niet handig, maar voor een prototype is dit prima.
  
-### 8.6. ADR-005 Pattern keuze
+### 8.6. ADR-006 Pattern keuze
 
 #### Context
 
