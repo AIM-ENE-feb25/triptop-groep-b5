@@ -1,0 +1,35 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+title Dynamic diagram: Niet-ingelogde gebruiker stuurt verzoek naar Gateway Controller
+
+actor User
+
+Container(webapp, "Front-end", "JS/React", "Behandelt veilige communicatie met de API's.")
+Container_Boundary(apiComponents, "API Application Container") {
+    Component(authController, "Auth Controller", "Spring REST Controller", "Handelt gebruikerslogin en token generatie af.")
+    Component(authService, "AuthService", "Spring Security", "Valideert gebruikers en genereert tokens.")
+    Component(controller, "Gateway Controller", "Spring REST Controller", "Behandelt verzoeken naar de API.")
+    Component(authroizatieService, "Authorization Service", "Spring Service", "Controleert gebruikersrollen.")
+}
+
+System_Ext(wiremock, "WireMock", "Simuleert de authenticatie- en autorisatieservice voor testdoeleinden")
+
+User --> webapp : 1. Verstuurt verzoek naar Gateway Controller
+webapp --> controller : 2. Probeert toegang, maar geen token
+controller --> webapp : 3. Retourneert 401 Unauthorized
+webapp --> authController : 4. Gebruiker logt in via
+authController --> authService : 5. Valideert gebruikersgegevens
+authService --> wiremock : 6. Controleert credentials en genereert token
+wiremock --> authService : 7. Retourneert token
+authService --> authController : 8. Geeft token terug
+authController --> webapp : 9. Geeft token aan front-end
+webapp --> controller : 10. Probeert opnieuw met token
+controller --> authroizatieService : 11. Controleert gebruikersrol
+authroizatieService --> wiremock : 12. Vraagt gebruikersrol op
+wiremock --> authroizatieService : 13. Retourneert gebruikersrol
+authroizatieService --> controller : 14. Autorisatie succesvol
+controller --> webapp : 15. Gebruiker heeft toegang en verstuurt gegevens door naar
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+title Klassendiagram voor Confidentiality ontwerpvraag
+
+interface AuthServicePort {
+    + String authroizeUser(String username, String password)
+}
+
+interface AuthorizationServicePort {
+    + boolean hasAccess(String token, String resource)
+}
+
+interface AuthFacade {
+    + String login(String username, String password)
+    + boolean checkAccess(String token, String resource)
+}
+
+class AuthServiceImpl {
+    + String authroizeUser(String username, String password)
+}
+
+class AuthorizationServiceImpl {
+    + boolean hasAccess(String token, String resource)
+}
+
+class AuthFacadeImpl {
+    - AuthServicePort authService
+    - AuthorizationServicePort authorizationService
+    + String login(String username, String password)
+    + boolean checkAccess(String token, String resource)
+}
+
+class AuthController {
+    - AuthServicePort authService
+    + String login(String username, String password)
+}
+
+class GatewayController {
+    - AuthFacade authFacade
+    + void handleRequest(String token, String resource)
+}
+
+AuthFacade <|.. AuthFacadeImpl
+AuthServicePort <|.. AuthServiceImpl
+AuthorizationServicePort <|.. AuthorizationServiceImpl
+AuthFacadeImpl o-- AuthServicePort
+AuthFacadeImpl o-- AuthorizationServicePort
+AuthController o-- AuthServicePort
+GatewayController o-- AuthFacade
+
+@enduml

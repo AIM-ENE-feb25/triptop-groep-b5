@@ -1,0 +1,30 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component diagram voor de backend container voor de "Confidentiality" ontwerpvraag
+
+Container(webapp, "Front-end", "JS/React", "Behandelt veilige communicatie met verouderde externe APIs.")
+
+Container_Boundary(apiComponents, "API Application Container") {
+    Component(authController, "Auth Controller", "Spring REST Controller", "Handelt gebruikerslogin en token generatie af.")
+    Component(authService, "AuthService", "Spring Security", "Autorisatie en authenticatie van gebruikers.")
+    Component(controller, "Gateway Controller", "Spring REST Controller", "Behandelt verzoeken van verouderde API's.")
+    Component(authroizatieService, "Authroizatie Service", "Spring Service", "Controleert gebruikersrollen.")
+    Component(service, "Gateway Service", "Spring Service", "Behandelt de communicatie met de verouderde API's.")
+}
+
+System_Ext(wiremock, "WireMock", "Simuleert de authenticatie- en autorisatieservice voor testdoeleinden")
+System_Ext(externalApi, "Verouderde Externe API", "Een verouderde API zonder beveiliging")
+
+Rel(webapp, authController, "Login-verzoek sturen", "JSON/HTTPS")
+Rel(authController, authService, "Valideert inloggegevens en genereert token")
+Rel(authService, wiremock, "Valideert gebruikersgegevens en genereert token", "JWT")
+Rel(webapp, controller, "Verstuurt verzoeken naar verouderde API", "JSON/HTTPS")
+Rel(controller, authroizatieService, "Controleert gebruikersrollen")
+Rel(controller, service, "Stuurt geverifieerde verzoeken naar Gateway Service")
+Rel(service, externalApi, "Communiceert met de externe API", "HTTP/JSON")
+Rel(authroizatieService, wiremock, "haalt gebruikersrollen", "JWT")
+
+SHOW_LEGEND()
+
+@enduml
