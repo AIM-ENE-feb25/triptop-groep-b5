@@ -1,30 +1,35 @@
 package bestelsysteem.service;
 
+import bestelsysteem.adapter.WireMockAdapter;
 import bestelsysteem.model.UserAccessInfo;
 import bestelsysteem.model.UserAuthorization;
 import bestelsysteem.service.port.AuthorizationServicePort;
-import bestelsysteem.adapter.AuthAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthorizationServiceImpl implements AuthorizationServicePort {
 
-    private final AuthAdapter authAdapter;
+    private final WireMockAdapter wireMockAdapter;
 
     @Autowired
-    public AuthorizationServiceImpl(AuthAdapter authAdapter) {
-        this.authAdapter = authAdapter;
+    public AuthorizationServiceImpl(WireMockAdapter wireMockAdapter) {
+        this.wireMockAdapter = wireMockAdapter;
     }
 
     @Override
-    public boolean hasAccess(String token, String role) {
+    public UserAccessInfo hasAccess(String role) {
         UserAuthorization userAuthorization = new UserAuthorization();
-        userAuthorization.setToken(token);
-        userAuthorization.setApplication("triptop");
+        userAuthorization.setUsername("edevries");
+        userAuthorization.setPassword("3g2Rw9sT1x");
+        userAuthorization.setApplication(userAuthorization.getApplication());
 
-        UserAccessInfo userAccessInfo = authAdapter.getRole(userAuthorization);
+        UserAccessInfo userAccessInfo = wireMockAdapter.getRole(userAuthorization);
 
-        return userAccessInfo != null && role.equals(userAccessInfo.getRole());
+        if (userAccessInfo.getRole().equals(role)) {
+            return userAccessInfo;
+        } else {
+            return userAccessInfo;
+        }
     }
 }

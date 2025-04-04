@@ -1,5 +1,7 @@
 package bestelsysteem.service.port;
 
+import bestelsysteem.model.UserAccessInfo;
+
 public interface AuthorizationServicePort {
-    boolean hasAccess(String token, String role);
+    UserAccessInfo hasAccess(String role);
 }

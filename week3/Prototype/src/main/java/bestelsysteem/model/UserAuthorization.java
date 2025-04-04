@@ -1,25 +1,13 @@
 package bestelsysteem.model;
 
 public class UserAuthorization {
-  String username;
-  String password;
-  String token;
-  String application;
-  String role;
+  private String username;
+  private String password;
+  private String token;
+  private String role;
+  private String application = "triptop";
 
-  public UserAuthorization() {}
-
-  public UserAuthorization(String username, String password) {
-    this.username = username;
-    this.password = password;
-  }
-
-  public UserAuthorization(String username, String password, String token) {
-    this.username = username;
-    this.password = password;
-    this.token = token;
-  }
-
+  // Getters and setters
   public String getUsername() {
     return username;
   }
@@ -44,14 +32,6 @@ public class UserAuthorization {
     this.token = token;
   }
 
-  public String getApplication() {
-    return application;
-  }
-
-  public void setApplication(String application) {
-    this.application = application;
-  }
-
     public String getRole() {
         return role;
     }
@@ -59,4 +39,12 @@ public class UserAuthorization {
     public void setRole(String role) {
         this.role = role;
     }
+
+  public String getApplication() {
+    return application;
+  }
+
+  public void setApplication(String application) {
+    this.application = application;
+  }
 }

@@ -1,8 +1,6 @@
 package bestelsysteem.service;
 
 import bestelsysteem.adapter.AuthAdapter;
-import bestelsysteem.exception.APICallException;
-import bestelsysteem.model.ErrorObject;
 import bestelsysteem.model.UserAccessInfo;
 import bestelsysteem.model.UserAuthorization;
 import bestelsysteem.service.port.AuthServicePort;
@@ -20,15 +18,8 @@ public class AuthServiceImpl implements AuthServicePort {
 
   @Override
   public UserAccessInfo authorizeUser(UserAuthorization userAuthorization) {
-    String token = authAdapter.getToken(userAuthorization);
 
-    userAuthorization.setToken(token);
-    userAuthorization.setApplication("triptop");
-
-    UserAccessInfo userAccessInfo = authAdapter.getRole(userAuthorization);
-    userAccessInfo.setToken(token);
-    userAuthorization.setRole(userAccessInfo.getRole());
-
-    return userAccessInfo;
+    return authAdapter.getRole(userAuthorization);
   }
+
 }
