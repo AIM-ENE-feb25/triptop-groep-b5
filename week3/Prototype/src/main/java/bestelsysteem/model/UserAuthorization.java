@@ -5,6 +5,7 @@ public class UserAuthorization {
   String password;
   String token;
   String application;
+  String role;
 
   public UserAuthorization() {}
 
@@ -50,4 +51,12 @@ public class UserAuthorization {
   public void setApplication(String application) {
     this.application = application;
   }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

@@ -6,18 +6,22 @@ title Component diagram voor de backend container voor de "Confidentiality" ontw
 Container(webapp, "Front-end", "JS/React", "Behandelt veilige communicatie met verouderde externe APIs.")
 
 Container_Boundary(apiComponents, "API Application Container") {
-    Component(authService, "AuthService", "Spring Security", "Autorizatie en authenticatie van gebruikers.")
+    Component(authController, "Auth Controller", "Spring REST Controller", "Handelt gebruikerslogin en token generatie af.")
+    Component(authService, "AuthService", "Spring Security", "Autorisatie en authenticatie van gebruikers.")
     Component(controller, "Gateway Controller", "Spring REST Controller", "Behandelt verzoeken van verouderde API's.")
-    Component(service, "Gateway Service", "Spring Service", "Behandeld de communicatie met de verouderde API's.")
+    Component(authroizatieService, "Authroizatie Service", "Spring Service", "Controleert gebruikersrollen.")
+    Component(service, "Gateway Service", "Spring Service", "Behandelt de communicatie met de verouderde API's.")
 }
 
 System_Ext(wiremock, "WireMock", "Simuleert de authenticatie- en autorisatieservice voor testdoeleinden")
 System_Ext(externalApi, "Verouderde Externe API", "Een verouderde API zonder beveiliging")
 
-Rel(webapp, controller, "Verstuurt verzoeken naar verouderde api", "JSON/HTTPS")
-Rel(controller, authService, "Verstuurt login-verzoek", "JSON/HTTPS")
+Rel(webapp, authController, "Login-verzoek sturen", "JSON/HTTPS")
+Rel(authController, authService, "Valideert inloggegevens en genereert token")
 Rel(authService, wiremock, "Valideert gebruikersgegevens en genereert token", "JWT")
-Rel(controller, service, "Delegeert naar Gateway Service")
+Rel(webapp, controller, "Verstuurt verzoeken naar verouderde API", "JSON/HTTPS")
+Rel(controller, authroizatieService, "Controleert gebruikersrollen")
+Rel(controller, service, "Stuurt geverifieerde verzoeken naar Gateway Service")
 Rel(service, externalApi, "Communiceert met de externe API", "HTTP/JSON")
 
 SHOW_LEGEND()

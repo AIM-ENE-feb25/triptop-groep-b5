@@ -1,31 +1,50 @@
 @startuml
-interface GatewayServicePort {
-    + boolean hasAccessToLegacyApi(String Rol)
-}
+title Klassendiagram voor Confidentiality ontwerpvraag
 
 interface AuthServicePort {
-    + String authorize(String token)
-    + String authenticate(String username, String password)
+    + String authroizeUser(String username, String password)
+}
+
+interface AuthorizationServicePort {
+    + boolean hasAccess(String token, String resource)
+}
+
+interface AuthFacade {
+    + String login(String username, String password)
+    + boolean checkAccess(String token, String resource)
+}
+
+class AuthServiceImpl {
+    + String authroizeUser(String username, String password)
+}
+
+class AuthorizationServiceImpl {
+    + boolean hasAccess(String token, String resource)
+}
+
+class AuthFacadeImpl {
+    - AuthServicePort authService
+    - AuthorizationServicePort authorizationService
+    + String login(String username, String password)
+    + boolean checkAccess(String token, String resource)
+}
+
+class AuthController {
+    - AuthServicePort authService
+    + String login(String username, String password)
 }
 
 class GatewayController {
-    - GatewayServicePort gatewayServicePort
-    - AuthServicePort authServicePort
-    - AuthorizationServicePort authorizationServicePort
-    + GatewayController(GatewayServicePort gatewayServicePort, AuthServicePort authServicePort, AuthorizationServicePort authorizationServicePort)
-    + handleRequest(String token)
+    - AuthFacade authFacade
+    + void handleRequest(String token, String resource)
 }
 
-class GatewayService implements GatewayServicePort {
-    + boolean hasAccessToLegacyApi(String Rol)
-}
-
-class AuthService implements AuthServicePort {
-    + String authenticate(String username, String password)
-    + String authorize(String token)
-}
-
-GatewayController --> GatewayServicePort
-GatewayController --> AuthServicePort
+AuthFacade <|.. AuthFacadeImpl
+AuthServicePort <|.. AuthServiceImpl
+AuthorizationServicePort <|.. AuthorizationServiceImpl
+AuthFacadeImpl o-- AuthServicePort
+AuthFacadeImpl o-- AuthorizationServicePort
+AuthController o-- AuthServicePort
+GatewayController o-- AuthFacade
 
 @enduml

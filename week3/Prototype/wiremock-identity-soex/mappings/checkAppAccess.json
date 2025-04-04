@@ -11,7 +11,7 @@
       {
         "matchesJsonPath": {
           "expression": "$.username",
-          "matches": "^(edevries|dvandijk|sbakker|sdegraaf|tvos)$"
+          "matches": "^(edevries|sdegraaf|tvos)$"
         }
       },
       {
@@ -25,9 +25,7 @@
   "response": {
     "status": 200,
     "jsonBody": {
-      "access": "allowed",
-      "role": "beheerder"
+      "access": "allowed"
     }
   }
 }
-

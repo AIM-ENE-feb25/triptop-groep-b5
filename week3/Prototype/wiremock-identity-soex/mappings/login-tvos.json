@@ -11,7 +11,8 @@
     "response": {
         "status": 200,
         "jsonBody": {
-            "token": "{{randomValue length=16 type='ALPHANUMERIC'}}"
+            "token": "{{randomValue length=16 type='ALPHANUMERIC'}}",
+            "role": "beheerder"
         },
         "transformers": [
             "response-template"
