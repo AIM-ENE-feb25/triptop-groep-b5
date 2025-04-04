@@ -4,7 +4,7 @@ public class UserAuthorization {
   String username;
   String password;
   String token;
-  String application;
+  String application = "triptop";
 
   public UserAuthorization() {}
 
