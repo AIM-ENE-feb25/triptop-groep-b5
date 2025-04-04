@@ -222,7 +222,11 @@ In het diagram hierboven wordt aangegeven hoe een externe API met authenticatie 
 **Interoperability**
 
 Wie roept een specifieke externe service aan, gebeurt dat vanuit de front-end of vanuit de back-end? Welke redenen zijn er om voor de ene of de andere aanpak te kiezen?
+![Class diagram](../opdracht-diagrammen/diagrammen-Cassey/class.png)
 
+![Sequence diagram](../opdracht-diagrammen/diagrammen-Cassey/Sequentie.png)
+
+In de diagram hierboven wordt aangegeven hoe via de backend een externe api wordt aangeroepen.
 ## 8. Architectural Decision Records
 
 ### 8.1. ADR-001 Maps API
