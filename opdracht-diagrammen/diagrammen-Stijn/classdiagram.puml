@@ -34,7 +34,7 @@ WireMockAdapter --> WireMockDriver: -wireMockDriver
 
 class WireMockDriver {
     +String login(String username, String password)
-    +String getRole(String username, String application, String token)
+    +String checkAppAccess(String username, String application, String token)
 }
 
 class ErrorObject {
