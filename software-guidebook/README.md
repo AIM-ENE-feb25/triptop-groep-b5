@@ -164,11 +164,7 @@ Er zijn hier een aantal voordelen voor:
 
 ### 6.2. Design Principles
 
-> [!IMPORTANT]
-> TODO
-
-> [!TIP]
-> Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
+Zie "8.6. ADR-005 Pattern keuze"
 
 ## 7. Software Architecture
 
