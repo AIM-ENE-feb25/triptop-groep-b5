@@ -1,25 +1,18 @@
 @startuml
-actor AuthService
+actor Gebruiker
 
-participant AuthAdapter
+participant AuthController
+participant AuthControllerExceptionHandler
+participant AuthService
 participant WireMockAdapter
-'participant APICallException
-'participant ErrorObject
-database "WireMock"
+participant WireMockDriver
 
-AuthService -> AuthService: userAuthorization = \nnew userAuthorization(username, password);
-AuthService -> AuthAdapter: getToken(userAuthorization)
-AuthAdapter -> WireMockAdapter: getToken(userAuthorization)
-WireMockAdapter -> "WireMock": request(url, userAuthorization)
-WireMockAdapter <- "WireMock": throws RestClientResponseException
-AuthService <- WireMockAdapter: throws APICallException(ErrorObject)
-
-====
-
-AuthService -> AuthAdapter: getRole(userAuthorization, token)
-AuthAdapter -> WireMockAdapter: getRole(userAuthorization, token)
-WireMockAdapter -> "WireMock": request(url, userAuthorization, token)
-WireMockAdapter <- "WireMock": throws RestClientResponseException
-AuthService <- WireMockAdapter: throws APICallException(ErrorObject)
+Gebruiker -> AuthController: GET /login\n{username, password}\n-> userAuthorization
+AuthController -> AuthService: authorizeUser(userAuthorization)
+AuthService -> WireMockAdapter: getRole(userAuthorization)
+WireMockAdapter -> WireMockDriver: loginResponse = login(userAuthorization)
+WireMockAdapter <- WireMockDriver: ❌ Not found Error
+AuthControllerExceptionHandler <- WireMockAdapter: throw new APICallException(ErrorObject)
+Gebruiker <- AuthControllerExceptionHandler: return new ResponseEntity(ErrorObject)
 
 @enduml

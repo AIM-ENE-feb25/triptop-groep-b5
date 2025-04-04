@@ -1,28 +1,41 @@
 @startuml
 'left to right direction
 
+class AuthController {
+    +UserAccessInfo login(UserAuthorization userAuthorization)
+}
+
+AuthController --> AuthServicePort : -authServicePort
+
+interface AuthServicePort {
+    +UserAccessInfo authorizeUser(UserAuthorization userAuthorization)
+}
+
+AuthServicePort <|-- AuthService
+
 class AuthService {
-    +UserAccessInfo getUserInfo(String username, String password)
+    +UserAccessInfo authorizeUser(UserAuthorization userAuthorization)
 }
 
-interface AuthenticationProvider {
-    +UserAccessInfo getUserInfo(String username, String password)
+AuthService --> AuthStrategy: -authStrategy
+
+interface AuthStrategy {
+    +UserAccessInfo getRole(UserAuthorization userAuthorization)
 }
 
-AuthService --> AuthenticationProvider: -authenticationProvider
+AuthStrategy <|-- WireMockAdapter
 
 class WireMockAdapter {
-    +UserAccessInfo getUserInfo(String username, String password)
+    -final ObjectMapper objectMapper
+    +UserAccessInfo getRole(UserAuthorization userAuthorization)
 }
 
-AuthenticationProvider <|.. WireMockAdapter
+WireMockAdapter --> WireMockDriver: -wireMockDriver
 
-class WireMockAPI {
+class WireMockDriver {
     +String login(String username, String password)
     +String getRole(String username, String application, String token)
 }
-
-WireMockAdapter --> WireMockAPI: -wireMockAPI
 
 class ErrorObject {
     +String message
@@ -36,7 +49,7 @@ class APICallException {
 
 APICallException --> ErrorObject: -error
 
-AuthPortWireMock --> APICallException: throws
+WireMockAdapter --> APICallException
 
 
 @enduml

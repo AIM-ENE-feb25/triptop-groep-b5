@@ -1,23 +1,23 @@
 @startuml
-actor AuthService
+actor Gebruiker
 
-participant AuthAdapter
+participant AuthController
+participant AuthControllerExceptionHandler
+participant AuthService
 participant WireMockAdapter
-'participant APICallException
-'participant ErrorObject
-database "WireMock"
+participant WireMockDriver
 
-AuthService -> AuthService: userAuthorization = \nnew userAuthorization(username, password);
-AuthService -> AuthAdapter: getToken(userAuthorization)
-AuthAdapter -> WireMockAdapter: getToken(userAuthorization)
-WireMockAdapter -> "WireMock": request(url, userAuthorization)
-WireMockAdapter <- "WireMock": String token
-AuthService <- WireMockAdapter: String token
-
-AuthService -> AuthAdapter: getRole(userAuthor.ization, token)
-AuthAdapter -> WireMockAdapter: getRole(userAuthorization, token)
-WireMockAdapter -> "WireMock": request(url, userAuthorization, token)
-WireMockAdapter <- "WireMock": UserAccessInfo userAccessInfo
-AuthService <- WireMockAdapter: UserAccessInfo userAccessInfo
+Gebruiker -> AuthController: GET /login\n{username, password}\n-> userAuthorization
+AuthController -> AuthService: authorizeUser(userAuthorization)
+AuthService -> WireMockAdapter: getRole(userAuthorization)
+WireMockAdapter -> WireMockDriver: loginResponse = login(userAuthorization)
+WireMockAdapter <- WireMockDriver: JSON
+WireMockAdapter -> WireMockAdapter: token = parse JSON
+WireMockAdapter -> WireMockDriver: checkAppAccessResponse = checkAppAccess(userAuthorization, token)
+WireMockAdapter <- WireMockDriver: JSON
+WireMockAdapter -> WireMockAdapter: userAccessInfo = parse JSON
+AuthService <- WireMockAdapter: userAccessInfo
+AuthController <- AuthService: userAccessInfo
+Gebruiker <- AuthController: userAccessInfo
 
 @enduml

@@ -31,7 +31,9 @@ public class WireMockAdapter implements AuthStrategy {
 
       String checkAppAccessResponse = wireMockAPI.checkAppAccess(userAuthorization.getUsername(), userAuthorization.getApplication(), token);
 
-      return objectMapper.readValue(checkAppAccessResponse, UserAccessInfo.class);
+      UserAccessInfo userAccessInfo = objectMapper.readValue(checkAppAccessResponse, UserAccessInfo.class);
+      userAccessInfo.setToken(token);
+      return userAccessInfo;
     } catch (RestClientResponseException e) {
       throw new APICallException(new ErrorObject(e.getMessage(), e.getClass().getSimpleName(), "Username or password is incorrect."));
     } catch (IOException e) {
