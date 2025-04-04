@@ -199,6 +199,14 @@ De backend zorgt ervoor dat de connectie met de externe services op de juiste ma
 > Voeg toe: Per ontwerpvraag een Class Diagram plus een Sequence Diagram van een aantal scenario's inclusief
 > begeleidende tekst.
 
+## Brian
+**Modularity**
+Hoe zorg je ervoor dat je makkelijk de ene externe service kan vervangen door een andere die ongeveer hetzelfde doet?
+![Class diagram](../opdracht-diagrammen/diagrammen-Brian/classdiagram.png)
+
+![Sequence Diagram](../opdracht-diagrammen/diagrammen-Brian/sequentiediagram.png)
+
+
 ## 8. Architectural Decision Records
 
 ### 8.1. ADR-001 Maps API
