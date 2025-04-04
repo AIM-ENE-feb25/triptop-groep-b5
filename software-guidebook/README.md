@@ -213,9 +213,9 @@ In het diagram hierboven wordt aangegeven hoe hotels worden opgehaald via twee v
 
 Hoe zorg je ervoor dat authenticatie en autorisatie consistent worden toegepast bij het communiceren met verschillende externe APIs?
 
-![Class diagram](../opdracht-diagrammen/diagrammen-Yousif/klassen-diagram/klassendiagram-Confidentiality-Klassendiagram_voor_Confidentiality_ontwerpvraag.png)
+![Class diagram](../opdracht-diagrammen/diagrammen-yousif/klassen-diagram/klassendiagram-Confidentiality-Klassendiagram_voor_Confidentiality_ontwerpvraag.png)
 
-![Sequence Diagram](../opdracht-diagrammen/diagrammen-Yousif/sequence-diagram/sequence-confidentiality.png)
+![Sequence Diagram](../opdracht-diagrammen/diagrammen-yousif/sequence-diagram/sequence-confidentiality.png)
 In het diagram hierboven wordt aangegeven hoe een externe API met authenticatie en autorisatie wordt aangeroepen.
 
 #### Cassey
