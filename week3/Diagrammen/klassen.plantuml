@@ -1,0 +1,52 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+title Klassenoverzicht - Restaurant API Structuur
+
+package "bestelsysteem.controller" {
+    class RestaurantController {
+        -service: RestaurantService
+        +getRestaurantsByCity(city: String): List<Restaurant>
+    }
+}
+
+package "bestelsysteem.service" {
+    class RestaurantService {
+        -adapter: RestaurantApiAdapter
+        +getRestaurants(stad: String): List<Restaurant>
+    }
+}
+
+package "bestelsysteem.adapter" {
+    interface RestaurantApiAdapter {
+        +getRestaurants(city: String): List<Restaurant>
+    }
+
+    class TripAdvisorRestaurantAdapter {
+        -apiKey: String
+        -baseUrl: String
+        -CITY_COORDINATES: Map<String, String[]>
+        +getRestaurants(city: String): List<Restaurant>
+    }
+
+    TripAdvisorRestaurantAdapter ..|> RestaurantApiAdapter
+}
+
+package "bestelsysteem.model" {
+    class Restaurant {
+        -name: String
+        -address: String
+        -rating: double
+        +getName(): String
+        +getAddress(): String
+        +getRating(): double
+    }
+}
+
+' RELATIES
+RestaurantController --> RestaurantService
+RestaurantService --> RestaurantApiAdapter
+TripAdvisorRestaurantAdapter --> Restaurant
+
+@enduml

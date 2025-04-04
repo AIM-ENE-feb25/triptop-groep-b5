@@ -1,0 +1,17 @@
+@startuml
+actor Gebruiker
+
+participant "RestaurantController" as RestaurantController
+participant "RestaurantService" as RestaurantService
+participant "TripAdvisorRestaurantAdapter" as TripAdvisorRestaurantAdapter
+participant "TripAdvisor API" as TripAdvisorAPI
+
+Gebruiker -> RestaurantController : GET /restaurants/{city}
+RestaurantController -> RestaurantService : getRestaurants(city)
+RestaurantService -> TripAdvisorRestaurantAdapter : getRestaurants(city)
+TripAdvisorRestaurantAdapter -> TripAdvisorAPI : GET /restaurants?lat=...&lng=... \n[met API key in header]
+TripAdvisorAPI --> TripAdvisorRestaurantAdapter : JSON response
+TripAdvisorRestaurantAdapter --> RestaurantService : List<Restaurant>
+RestaurantService --> RestaurantController : List<Restaurant>
+RestaurantController --> Gebruiker : 200 OK + JSON van eigen Restaurant-klasse
+@enduml

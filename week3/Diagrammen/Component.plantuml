@@ -1,0 +1,40 @@
+@startuml
+
+!include <C4/C4>
+!include <C4/C4_Component>
+
+LAYOUT_LEFT_RIGHT()
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Component diagram - Interoperability: wie roept een externe service aan en waarom?
+
+Container(frontend, "Frontend", $techn="React", $descr="Toont de pagina aan de gebruiker. Roept alleen backend-endpoints aan. Kan geen API keys gebruiken.")
+System_Ext(tripadvisor, "TripAdvisor API", "Externe restaurantservice. Vereist API key.")
+
+Container_Boundary("backend", "Backend container") {
+
+    ' CONTROLLER
+    Component(restaurantController, "RestaurantController", $techn="Spring Boot Controller", $descr="Ontvangt verzoek van frontend en stuurt het door naar de service")
+
+    ' SERVICE
+    Component(restaurantService, "RestaurantService", $techn="Spring Boot Service", $descr="Bevat domeinlogica en gebruikt een adapter via de interface")
+
+    ' INTERFACE
+    Component(restaurantAdapter, "RestaurantApiAdapter", $techn="Interface", $descr="Strategy interface voor restaurantgegevens")
+
+    ' ADAPTER
+    Component(tripAdapter, "TripAdvisorRestaurantAdapter", $techn="Spring Boot Adapter", $descr="Haalt de API key via application.properties en voert externe HTTP-aanroep uit naar TripAdvisor")
+
+    ' RELATIES
+    Rel(frontend, restaurantController, "Doet aanvraag", "HTTP/JSON")
+    Rel(restaurantController, restaurantService, "Gebruikt")
+    Rel(restaurantService, restaurantAdapter, "Gebruikt via interface")
+    Rel(tripAdapter, tripadvisor, "Vraagt lijst restaurants op", "HTTP/JSON - met API key")
+    Rel(tripAdapter, restaurantAdapter, "Implementeert")
+}
+
+SHOW_LEGEND()
+
+@enduml
