@@ -2,7 +2,7 @@
 
 skinparam classAttributeIconSize 0
 skinparam packageStyle rectangle
-title Klassenoverzicht - Restaurant API Structuur
+title Klassen diagram - Wie roept een specifieke externe service aan, gebeurt dat vanuit de front-end of vanuit de back-end? Welke redenen zijn er om voor de ene of de andere aanpak te kiezen?
 
 package "bestelsysteem.controller" {
     class RestaurantController {
