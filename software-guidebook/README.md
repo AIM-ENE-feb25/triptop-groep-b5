@@ -218,6 +218,11 @@ Hoe zorg je ervoor dat authenticatie en autorisatie consistent worden toegepast 
 ![Sequence Diagram](../opdracht-diagrammen/diagrammen-Yousif/sequence-diagram/sequence-confidentiality.png)
 In het diagram hierboven wordt aangegeven hoe een externe API met authenticatie en autorisatie wordt aangeroepen.
 
+#### Cassey
+**Interoperability**
+
+Wie roept een specifieke externe service aan, gebeurt dat vanuit de front-end of vanuit de back-end? Welke redenen zijn er om voor de ene of de andere aanpak te kiezen?
+
 ## 8. Architectural Decision Records
 
 ### 8.1. ADR-001 Maps API
