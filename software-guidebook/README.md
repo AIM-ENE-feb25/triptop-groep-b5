@@ -204,7 +204,7 @@ Hoe zorg je ervoor dat je makkelijk de ene externe service kan vervangen door ee
 
 ![Class diagram](../opdracht-diagrammen/diagrammen-Brian/classdiagram.png)
 
-![Sequence Diagram](../opdracht-diagrammen/diagrammen-Brian/sequentiediagram.png)
+![Sequence Diagram](../opdracht-diagrammen/diagrammen-Brian/diagram-2857203832900254805.png)
 In het diagram hierboven wordt aangegeven hoe hotels worden opgehaald via twee verschillende api's.
 
 #### Yousif
