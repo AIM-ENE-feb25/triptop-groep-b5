@@ -23,7 +23,7 @@ Gebruiker -> controller1 : GET hotels\n\
 
 controller1 -> service1 : getHotels(location)
 
-service1 -> BookingAdapt : getHotels(location)
+service1 -> BookingAdapt : getLocation(location)
 BookingAdapt -> BookingDrv : getLocation(location)
 BookingDrv -> BookingDrv : encodeLocation = location, "UTF-8"
 BookingDrv -> BookingApi : GET searchDestination?query=encodedLocation
@@ -37,16 +37,16 @@ BookingApi --> BookingDrv : JSON Data
 BookingDrv --> BookingAdapt : JSON Data
 BookingAdapt --> service1 : List<hotel>
 
-service1 -> TripAdapt : getHotels(location)
+service1 -> TripAdapt : getLocation(location)
 TripAdapt -> TripDrv : getLocation(location)
 TripDrv -> TripDrv : encodeLocation = location, "UTF-8"
-TripDrv -> TripApi : GET searchDestination?query=encodedLocation
+TripDrv -> TripApi : GET searchLocation?query=encodedLocation
 TripApi --> TripDrv : JSON Data
 TripDrv --> TripAdapt : JSON Data
 TripAdapt --> service1 : locationCode
 service1 -> TripAdapt : getHotels(locationCode)
 TripAdapt -> TripDrv : getHotels(locationCode)
-TripDrv -> TripApi : GET /searchHotels?dest_id=locationCode
+TripDrv -> TripApi : GET /searchHotels?geoId=locationCode
 TripApi --> TripDrv : JSON Data
 TripDrv --> TripAdapt : JSON Data
 TripAdapt --> service1 : List<hotel>
