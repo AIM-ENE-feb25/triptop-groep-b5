@@ -1,7 +1,7 @@
-package bestelsysteem.controller;
+package confidentiality.controller;
 
-import bestelsysteem.exception.APICallException;
-import bestelsysteem.model.ErrorObject;
+import confidentiality.exception.APICallException;
+import confidentiality.model.ErrorObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

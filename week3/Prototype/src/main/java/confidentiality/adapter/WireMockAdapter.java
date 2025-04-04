@@ -1,11 +1,11 @@
-package bestelsysteem.adapter;
+package confidentiality.adapter;
 
-import bestelsysteem.exception.APICallException;
-import bestelsysteem.external.WireMockDriver;
-import bestelsysteem.model.ErrorObject;
-import bestelsysteem.model.TokenObject;
-import bestelsysteem.model.UserAccessInfo;
-import bestelsysteem.model.UserAuthorization;
+import confidentiality.exception.APICallException;
+import confidentiality.external.WireMockDriver;
+import confidentiality.model.ErrorObject;
+import confidentiality.model.TokenObject;
+import confidentiality.model.UserAccessInfo;
+import confidentiality.model.UserAuthorization;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientResponseException;

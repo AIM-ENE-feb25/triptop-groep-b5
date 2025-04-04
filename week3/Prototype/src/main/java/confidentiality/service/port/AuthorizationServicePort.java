@@ -1,6 +1,6 @@
-package bestelsysteem.service.port;
+package confidentiality.service.port;
 
-import bestelsysteem.model.UserAccessInfo;
+import confidentiality.model.UserAccessInfo;
 
 public interface AuthorizationServicePort {
     UserAccessInfo hasAccess(String role);

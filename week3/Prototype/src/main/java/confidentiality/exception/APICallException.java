@@ -1,6 +1,6 @@
-package bestelsysteem.exception;
+package confidentiality.exception;
 
-import bestelsysteem.model.ErrorObject;
+import confidentiality.model.ErrorObject;
 
 public class APICallException extends RuntimeException {
     private final ErrorObject errorObject;

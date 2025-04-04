@@ -1,9 +1,9 @@
-package bestelsysteem.service;
+package confidentiality.service;
 
-import bestelsysteem.adapter.AuthAdapter;
-import bestelsysteem.model.UserAccessInfo;
-import bestelsysteem.model.UserAuthorization;
-import bestelsysteem.service.port.AuthServicePort;
+import confidentiality.adapter.AuthAdapter;
+import confidentiality.model.UserAccessInfo;
+import confidentiality.model.UserAuthorization;
+import confidentiality.service.port.AuthServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

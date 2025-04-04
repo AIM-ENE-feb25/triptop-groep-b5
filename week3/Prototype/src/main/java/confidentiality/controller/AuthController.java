@@ -1,8 +1,8 @@
-package bestelsysteem.controller;
+package confidentiality.controller;
 
-import bestelsysteem.model.UserAccessInfo;
-import bestelsysteem.model.UserAuthorization;
-import bestelsysteem.service.port.AuthServicePort;
+import confidentiality.model.UserAccessInfo;
+import confidentiality.model.UserAuthorization;
+import confidentiality.service.port.AuthServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

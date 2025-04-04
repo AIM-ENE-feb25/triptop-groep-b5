@@ -1,10 +1,10 @@
-package bestelsysteem.controller;
+package confidentiality.controller;
 
-import bestelsysteem.adapter.WireMockAdapter;
-import bestelsysteem.model.UserAccessInfo;
-import bestelsysteem.model.UserAuthorization;
-import bestelsysteem.service.port.AuthServicePort;
-import bestelsysteem.service.port.AuthorizationServicePort;
+import confidentiality.adapter.WireMockAdapter;
+import confidentiality.model.UserAccessInfo;
+import confidentiality.model.UserAuthorization;
+import confidentiality.service.port.AuthServicePort;
+import confidentiality.service.port.AuthorizationServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

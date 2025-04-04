@@ -1,4 +1,4 @@
-package bestelsysteem.model;
+package confidentiality.model;
 
 import java.util.Objects;
 

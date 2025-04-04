@@ -1,0 +1,26 @@
+@startuml
+autonumber
+
+actor Gebruiker as A
+participant "AuthController" as AuthController
+participant "AuthService" as AuthService
+participant "GatewayController" as GatewayController
+participant "WireMockAdapter" as WireMockAdapter
+participant "AuthorisatieService" as AuthorisatieService
+
+A -> GatewayController : 1. GET Request (No Token)
+GatewayController --> A : 2. Access Denied (No Token)
+
+A -> AuthController : 3. POST Authentication Request (username, password)
+AuthController -> AuthService : 4. Validate credentials (username, password)
+AuthService -> WireMockAdapter : 5. Retrieve Token
+WireMockAdapter --> AuthService : 6. Return Token
+AuthService --> AuthController : 7. Return Token
+AuthController --> A : 8. Authentication Response (Token)
+
+A -> GatewayController : 9. GET Request (With Token)
+GatewayController -> AuthorisatieService : 10. Check Access (hasAccess method)
+AuthorisatieService --> GatewayController : 11. Access Granted
+GatewayController --> A : 12. Requested Resource
+
+@enduml

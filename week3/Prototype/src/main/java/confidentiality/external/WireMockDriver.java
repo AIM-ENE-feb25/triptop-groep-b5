@@ -1,4 +1,4 @@
-package bestelsysteem.external;
+package confidentiality.external;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

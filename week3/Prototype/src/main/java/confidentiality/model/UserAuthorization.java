@@ -1,4 +1,4 @@
-package bestelsysteem.model;
+package confidentiality.model;
 
 public class UserAuthorization {
   private String username;
