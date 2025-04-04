@@ -207,6 +207,11 @@ Hoe zorg je ervoor dat je makkelijk de ene externe service kan vervangen door ee
 ![Sequence Diagram](../opdracht-diagrammen/diagrammen-Brian/sequentiediagram.png)
 In het diagram hierboven wordt aangegeven hoe hotels worden opgehaald via twee verschillende api's.
 
+#### Cassey
+**Interoperability**
+
+Wie roept een specifieke externe service aan, gebeurt dat vanuit de front-end of vanuit de back-end? Welke redenen zijn er om voor de ene of de andere aanpak te kiezen?
+
 ## 8. Architectural Decision Records
 
 ### 8.1. ADR-001 Maps API
