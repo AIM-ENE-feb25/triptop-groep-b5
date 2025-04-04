@@ -29,8 +29,14 @@ Container_Boundary("key_boundary", "Backend container", $tags="") {
     ' SERVICE relations
     Rel(authController, authService, "Gebruikt", $tags="", $link="")
 
+    ' ADAPTERS
+    Component(authAdapter, "Autorisatie Adapter", $techn="Java/Spring Boot Adapter", $descr="Verbindt de autorisatie service met de wiremock service", $tags="", $link="")
+
+    ' ADAPTER relations
+    Rel(authService, authAdapter, "Gebruikt", $tags="", $link="")
+
     ' EXTERN
-    Rel(authService, wiremock, "Autoriseert gebruikers via", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(authAdapter, wiremock, "Autoriseert gebruikers via", $techn="HTTP(S)/JSON", $tags="", $link="")
 }
 
 SHOW_LEGEND()
