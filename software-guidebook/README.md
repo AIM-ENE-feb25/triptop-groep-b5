@@ -218,9 +218,8 @@ Hoe zorg je ervoor dat je makkelijk de ene externe service kan vervangen door ee
 
 ![Class diagram](../opdracht-diagrammen/diagrammen-Brian/classdiagram.png)
 
-![Sequence Diagram](../opdracht-diagrammen/diagrammen-Brian/sequentiediagram.png)
+![Sequence Diagram](../opdracht-diagrammen/diagrammen-Brian/diagram-2857203832900254805.png)
 In het diagram hierboven wordt aangegeven hoe hotels worden opgehaald via twee verschillende api's.
-
 
 #### Yousif
 **Confidentiality**
@@ -241,6 +240,20 @@ Wie roept een specifieke externe service aan, gebeurt dat vanuit de front-end of
 ![Sequence diagram](../opdracht-diagrammen/diagrammen-Cassey/Sequentie.png)
 
 In de diagram hierboven wordt aangegeven hoe via de backend een externe api wordt aangeroepen.
+
+#### Stijn
+**Fault tolerance**
+
+Hoe ga je om met aanroepen van externe services die niet beschikbaar zijn en toch verwacht wordt dat er waardevolle output gegeven wordt?
+
+![Class diagram](../opdracht-diagrammen/diagrammen-Stijn/classdiagram.png)
+
+![Sequence diagram](../opdracht-diagrammen/diagrammen-Stijn/sequentiediagram.png)
+
+![Sequence diagram](../opdracht-diagrammen/diagrammen-Stijn/sequentiediagram-fout.png)
+
+Hierboven staan twee diagrammen waar bij de eerste de login van de gebruiker helemaal goed gaat en dat het systeem de rol terug krijgt en in de tweede situatie als de login niet verkeerd gaat om wat voor reden dan ook wordt er een foutmelding netjes getoont aan de eindgebruiker.
+
 ## 8. Architectural Decision Records
 
 ### 8.1. ADR-001 Maps API
@@ -405,7 +418,7 @@ Accepted
 Dit zorgt ervoor dat de database elke keer opnieuw wordt opgebouwd en er geen data wordt opgeslagen.
 Voor productie is dit niet handig, maar voor een prototype is dit prima.
  
-### 8.6. ADR-005 Pattern keuze
+### 8.6. ADR-006 Pattern keuze
 
 #### Context
 
