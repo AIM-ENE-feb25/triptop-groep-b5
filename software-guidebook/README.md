@@ -191,6 +191,20 @@ De backend zorgt ervoor dat de connectie met de externe services op de juiste ma
 #### 7.2.2 Backend
 ![Backend container](../opdracht-diagrammen/3Component/Backend-components.png)
 
+#### 7.2.2.1 Component diagram voor confidentiality 
+**Hoe zorg je ervoor dat authenticatie en autorisatie consistent worden toegepast bij het communiceren met verschillende externe APIs?**
+
+![component diagram confidentiality](../opdracht-diagrammen/diagrammen-yousif/component-diagram/ComponentDiagram-Component_diagram_voor_de_backend_container_voor_de__Confidentiality__ontwerpvraag.png)
+
+#### 7.2.2.2 Happy path dynamic component diagram
+![dynamic component diagram](../opdracht-diagrammen/diagrammen-yousif/dynamic-diagram/Dynamic_diagram-Dynamic_diagram__Niet_ingelogde_gebruiker_stuurt_verzoek_naar_Gateway_Controller.png)
+
+Het idee is dat de gebruiker een rol heeft en dat deze rol wordt gecontroleerd door de gateway controller.
+
+#### 7.2.2.3 Unhappy path dynamic component diagram
+![unhappy dynamic component diagram](../opdracht-diagrammen/diagrammen-yousif/dynamic-diagram/Dynamic_diagram_unhappy_path-Dynamic_diagram__Gebruiker_heeft_niet_de_juiste_rol_voor_Gateway_Controller.png)
+
+Wat fout gaat is dat de gebruiker niet de juiste rol heeft voor de gateway controller en dus geen toegang heeft tot die informatie.
 ### 7.3. Design & Code
 
 > [!IMPORTANT]

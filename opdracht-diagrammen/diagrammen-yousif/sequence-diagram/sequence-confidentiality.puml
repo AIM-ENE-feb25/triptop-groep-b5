@@ -2,6 +2,8 @@
 autonumber
 
 actor Gebruiker as A
+
+title Sequence Diagram: Confidentiality authorisatie & authenticatie
 participant "AuthController" as AuthController
 participant "AuthService" as AuthService
 participant "GatewayController" as GatewayController
