@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+LAYOUT_LEFT_RIGHT()
+LAYOUT_WITH_LEGEND()
+
+title Dynamisch diagram - Wie roept de externe TripAdvisor API aan?
+
+Person(gebruiker, "Gebruiker", "Gebruikt de website om restaurants op te vragen")
+System_Boundary(c1, "Triptop - Restaurantsysteem") {
+    Container(frontend, "React Frontend", "React", "Toont de gebruikersinterface en stuurt aanvragen naar de backend")
+    Container(backend, "Spring Boot Backend", "Spring Boot", "Bevat controller, service, adapter en interface")
+}
+System_Ext(api, "TripAdvisor API", "Externe service met restaurantinformatie (vereist API key)")
+
+' Interactie
+Rel_D(gebruiker, frontend, "Doet een aanvraag voor restaurants", "HTTPS")
+Rel(frontend, backend, "Stuurt locatie door naar RestaurantController", "JSON/HTTPS")
+Rel(backend, api, "RestaurantService roept TripAdvisorAdapter aan via interface", "HTTP + API key")
+Rel_U(backend, frontend, "Geeft lijst restaurants terug", "JSON")
+
+SHOW_LEGEND()
+@enduml

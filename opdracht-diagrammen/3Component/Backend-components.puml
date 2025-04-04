@@ -1,0 +1,75 @@
+@startuml
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+left to right direction
+SHOW_PERSON_OUTLINE()
+
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Component diagram voor de backend container van het Triptop systeem
+
+Container(frontend, "Frontend", $techn="JS/React", $descr="Laat de pagina zien aan de gebruiker.", $tags="", $link="")
+ContainerDb(db, "Database", $techn="SQL/MySQL", $descr="Slaat informatie op vanuit de backend.", $tags="", $link="")
+
+System_Ext(wiremock, "Identity Provider", "Geeft een token terug als je een geldige gebruikersnaam en wachtwoord geeft. WireMock")
+System_Ext(opentable, "Opentable API", "API voor reserveren van restaurants")
+System_Ext(overnachting, "Overnachting service", "Booking.com api service")
+System_Ext(uber, "Uber service", "Uber API")
+
+Container_Boundary("key_boundary", "Backend container", $tags="") {
+    ' CONTROLLERS
+    Component(authController, "Autorisatie Controller", $techn="Java/Spring Boot Controller", $descr="Inloggen, account informatie, etc", $tags="", $link="")
+    Component(reisController, "Reis Controller", $techn="Java/Spring Boot Controller", $descr="Voegt bouwstenen toe aan een reis, en kan de volledige reis ophalen", $tags="", $link="")
+    Component(bestellingController, "Bestelling Controller", $techn="Java/Spring Boot Controller", $descr="Overzicht van een bestelling ophalen en betalen", $tags="", $link="")
+    Component(klantController, "Klant Controller", $techn="Java/Spring Boot Controller", $descr="Lijst van klanten ophalen en informatie over één specifieke klant", $tags="", $link="")
+
+    ' CONTROLLER relations
+    Rel(frontend, authController, "Logt in via", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(frontend, reisController, "Voegt bouwstenen aan reis toe", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(frontend, bestellingController, "Bekijkt bestelling en betaalt via", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(frontend, klantController, "Haalt informatie over klanten op via", $techn="HTTP(S)/JSON", $tags="", $link="")
+
+    ' SERVICES
+    Component(authService, "Autorisatie Service", $techn="Java/Spring Boot Service", $descr="Connectie met OAuth provider, account data ophalen vanuit klant database", $tags="", $link="")
+    Component(reisService, "Reis Service", $techn="Java/Spring Boot Service", $descr="Bouwstenen toevoegen aan een reis, ophalen volledige reis", $tags="", $link="")
+    Component(bestellingService, "Bestelling Service", $techn="Java/Spring Boot Service", $descr="Overzicht van een bestelling ophalen, betalen via externe betaal provider", $tags="", $link="")
+    Component(klantService, "Klant Service", $techn="Java/Spring Boot Service", $descr="Lijst van klanten ophalen, informatie over specifieke klant ophalen", $tags="", $link="")
+
+    ' SERVICE relations
+    Rel(authController, authService, "Gebruikt", $tags="", $link="")
+'    Rel(authService, klantService, "Gebruikt", $tags="", $link="")
+    Rel(reisController, reisService, "Gebruikt", $tags="", $link="")
+    Rel(bestellingController, bestellingService, "Gebruikt", $tags="", $link="")
+    Rel(bestellingController, reisService, "Gebruikt", $tags="", $link="")
+    Rel(klantController, klantService, "Gebruikt", $tags="", $link="")
+
+    ' REPOSITORY
+    Component(reisRepository, "Reis Repository", $techn="Java/Spring Boot JDBC Repository", $descr="", $tags="", $link="")
+    Component(bestellingRepository, "Bestelling Repository", $techn="Java/Spring Boot JDBC Repository", $descr="", $tags="", $link="")
+    Component(klantRepository, "Klant Repository", $techn="Java/Spring Boot JDBC Repository", $descr="", $tags="", $link="")
+
+    ' REPOSITORY relations
+    Rel(reisService, reisRepository, "Gebruikt", $tags="", $link="")
+    Rel(bestellingService, bestellingRepository, "Gebruikt", $tags="", $link="")
+    Rel(klantService, klantRepository, "Gebruikt", $tags="", $link="")
+    Rel(authService, klantRepository, "Gebruikt", $tags="", $link="")
+
+    ' NAAR DB
+    Rel(reisRepository, db, "Haalt gegevens op", $techn="TCP/IP/SQL", $tags="", $link="")
+    Rel(bestellingRepository, db, "Haalt gegevens op", $techn="TCP/IP/SQL", $tags="", $link="")
+    Rel(klantRepository, db, "Haalt gegevens op", $techn="TCP/IP/SQL", $tags="", $link="")
+
+    ' EXTERN
+    Rel(authService, wiremock, "Autoriseert gebruikers via", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(reisService, opentable, "Reserveert een tafel bij een restaurant via", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(reisService, overnachting, "Boekt een gekozen overnachting via", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(reisService, uber, "Boekt vervoer via", $techn="HTTP(S)/JSON", $tags="", $link="")
+}
+
+SHOW_LEGEND()
+
+@enduml

@@ -1,0 +1,56 @@
+@startuml
+
+package bestelsysteem.model {
+    class Restaurant {
+        - name : String
+        - address : String
+        - rating : double
+        + getName() : String
+        + getAddress() : String
+        + getRating() : double
+    }
+}
+
+package bestelsysteem.adapter {
+    interface RestaurantApiAdapter {
+        + getRestaurants(city : String) : List<Restaurant>
+    }
+
+    class TripAdvisorRestaurantAdapter implements RestaurantApiAdapter {
+        - API_KEY : String
+        - API_HOST : String
+        - BASE_URL : String
+        - CITY_COORDINATES : Map<String, String[]>
+        + getRestaurants(city : String) : List<Restaurant>
+    }
+}
+
+package bestelsysteem.service {
+    class RestaurantService {
+        - adapter : RestaurantApiAdapter
+        + getRestaurants(city : String) : List<Restaurant>
+    }
+}
+
+package bestelsysteem.controller {
+    class RestaurantController {
+        - service : RestaurantService
+        + getRestaurantsByCity(city : String) : List<Restaurant>
+    }
+}
+
+package bestelsysteem {
+    class Application {
+        + main(args : String[]) : void
+    }
+}
+
+RestaurantApiAdapter <|.. TripAdvisorRestaurantAdapter
+TripAdvisorRestaurantAdapter --> Restaurant
+RestaurantService --> RestaurantApiAdapter
+RestaurantController --> RestaurantService
+RestaurantController --> Restaurant
+RestaurantService --> Restaurant
+Application --> RestaurantController : (via Spring Boot)
+
+@enduml
