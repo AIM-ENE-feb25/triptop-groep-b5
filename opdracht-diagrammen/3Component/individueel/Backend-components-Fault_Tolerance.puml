@@ -24,19 +24,13 @@ Container_Boundary("key_boundary", "Backend container", $tags="") {
     Rel(frontend, authController, "Logt in via", $techn="HTTP(S)/JSON", $tags="", $link="")
 
     ' SERVICES
-    Component(authService, "Autorisatie Service", $techn="Java/Spring Boot Service", $descr="Verifieert data en stuurt die op naar de adapter\n\nVerantwoordelijkheid: Encapsulate What Varies", $tags="", $link="")
+    Component(authService, "Autorisatie Service", $techn="Java/Spring Boot Service", $descr="Verifieert data en stuurt die op naar de oauth provider\n\nVerantwoordelijkheid: Encapsulate What Varies", $tags="", $link="")
 
     ' SERVICE relations
     Rel(authController, authService, "Gebruikt", $tags="", $link="")
 
-    ' ADAPTERS
-    Component(authAdapter, "Autorisatie Adapter", $techn="Java/Spring Boot Service", $descr="Heeft verschillende providers als implementatie. Stuurt informatie door\n\nVerantwoordelijkheid: Encapsulate What Varies", $tags="", $link="")
-
-    ' ADAPTER relations
-    Rel(authService, authAdapter, "Gebruikt", $tags="", $link="")
-
     ' EXTERN
-    Rel(authAdapter, wiremock, "Autoriseert gebruikers via", $techn="HTTP(S)/JSON", $tags="", $link="")
+    Rel(authService, wiremock, "Autoriseert gebruikers via", $techn="HTTP(S)/JSON", $tags="", $link="")
 }
 
 SHOW_LEGEND()
