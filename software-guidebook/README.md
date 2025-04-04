@@ -272,14 +272,12 @@ Het is dus belangrijk dat deze ook niet in git terecht komen.
 
 #### Decision
 
-We hebben gekozen voor .env. Het is misschien niet te makkelijkste keuze, maar we hebben gekozen voor geheimhouding
-boven makkelijkheid van gebruik.
+We hebben gekozen voor application.properties. Het lijkt in dit geval het meest geschrikt voor het prototypen.
 
 #### Consequences
 
-De secret keys zullen zeer waarschijnlijk niet in git terecht komen, omdat deze veilig in de .env file staan.
-We moeten wel nog uitzoeken hoe we de .env variabelen in Java krijgen, omdat we hier nog niet bekend mee zijn. Ook zal
-elk teamlid individueel dit moeten instellen met hun eigen API keys.
+De secret keys zullen niet in git terecht komen, omdat deze veilig in de application.properties file staan.
+Wel heeft dit als impact dat als er iets veranderd in de application.properties zou elk teamlid hierom ook individueel dit moeten instellen met de nieuwe aanpassingen en hun eigen API keys.
 
 ### 8.3. ADR-003 OAuth2 Provider
 
