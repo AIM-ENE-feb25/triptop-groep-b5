@@ -23,6 +23,7 @@ Rel(webapp, controller, "Verstuurt verzoeken naar verouderde API", "JSON/HTTPS")
 Rel(controller, authroizatieService, "Controleert gebruikersrollen")
 Rel(controller, service, "Stuurt geverifieerde verzoeken naar Gateway Service")
 Rel(service, externalApi, "Communiceert met de externe API", "HTTP/JSON")
+Rel(authroizatieService, wiremock, "haalt gebruikersrollen", "JWT")
 
 SHOW_LEGEND()
 
