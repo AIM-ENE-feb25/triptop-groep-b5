@@ -1,0 +1,61 @@
+@startuml
+
+autonumber
+
+title "Gebruiker haalt beschikbare hotels op uit de api"
+
+actor "Gebruiker" as Gebruiker
+participant "ReisController:\nReisController" as controller1
+participant "ReisService:\nReisService" as service1
+participant "BookingApiAdapter:\nHotelAdapter" as BookingAdapt
+participant "BookingDriver:\nHotelDriver" as BookingDrv
+participant "TripAdvisorApiAdapter:\nHotelAdapter" as TripAdapt
+participant "TripadvisorDriver:\nHotelDriver" as TripDrv
+
+participant "TripAdvisorApi" as TripApi
+participant "BookingApi" as BookingApi
+
+
+Gebruiker -> controller1 : GET hotels\n\
+{\n\
+    "location": "Amsterdam" \n\
+}
+
+controller1 -> service1 : getHotels(location)
+
+service1 -> BookingAdapt : getHotels(location)
+BookingAdapt -> BookingDrv : getLocation(location)
+BookingDrv -> BookingDrv : encodeLocation = location, "UTF-8"
+BookingDrv -> BookingApi : GET searchDestination?query=encodedLocation
+BookingApi --> BookingDrv : JSON Data
+BookingDrv --> BookingAdapt : JSON Data
+BookingAdapt --> service1 : locationCode
+service1 -> BookingAdapt : getHotels(locationCode)
+BookingAdapt -> BookingDrv : getHotels(locationCode)
+BookingDrv -> BookingApi : GET /searchHotels?dest_id=locationCode
+BookingApi --> BookingDrv : JSON Data
+BookingDrv --> BookingAdapt : JSON Data
+BookingAdapt --> service1 : List<hotel>
+
+service1 -> TripAdapt : getHotels(location)
+TripAdapt -> TripDrv : getLocation(location)
+TripDrv -> TripDrv : encodeLocation = location, "UTF-8"
+TripDrv -> TripApi : GET searchDestination?query=encodedLocation
+TripApi --> TripDrv : JSON Data
+TripDrv --> TripAdapt : JSON Data
+TripAdapt --> service1 : locationCode
+service1 -> TripAdapt : getHotels(locationCode)
+TripAdapt -> TripDrv : getHotels(locationCode)
+TripDrv -> TripApi : GET /searchHotels?dest_id=locationCode
+TripApi --> TripDrv : JSON Data
+TripDrv --> TripAdapt : JSON Data
+TripAdapt --> service1 : List<hotel>
+
+
+service1 -> service1 : List<hotel> = api call met meeste resultaten
+service1 --> controller1 : List<hotel>
+controller1 --> Gebruiker : List<hotel>
+
+
+
+@enduml
