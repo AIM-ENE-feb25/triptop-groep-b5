@@ -1,0 +1,55 @@
+@startuml
+'left to right direction
+
+class AuthController {
+    +UserAccessInfo login(UserAuthorization userAuthorization)
+}
+
+AuthController --> AuthServicePort : -authServicePort
+
+interface AuthServicePort {
+    +UserAccessInfo authorizeUser(UserAuthorization userAuthorization)
+}
+
+AuthServicePort <|-- AuthService
+
+class AuthService {
+    +UserAccessInfo authorizeUser(UserAuthorization userAuthorization)
+}
+
+AuthService --> AuthStrategy: -authStrategy
+
+interface AuthStrategy {
+    +UserAccessInfo getRole(UserAuthorization userAuthorization)
+}
+
+AuthStrategy <|-- WireMockAdapter
+
+class WireMockAdapter {
+    -final ObjectMapper objectMapper
+    +UserAccessInfo getRole(UserAuthorization userAuthorization)
+}
+
+WireMockAdapter --> WireMockDriver: -wireMockDriver
+
+class WireMockDriver {
+    +String login(String username, String password)
+    +String getRole(String username, String application, String token)
+}
+
+class ErrorObject {
+    +String message
+    +String type
+    +String friendlyMessage
+}
+
+class APICallException {
+    +APICallException(ErrorObject error)
+}
+
+APICallException --> ErrorObject: -error
+
+WireMockAdapter --> APICallException
+
+
+@enduml
