@@ -1,0 +1,18 @@
+@startuml
+actor Gebruiker
+
+participant AuthController
+participant AuthControllerExceptionHandler
+participant AuthService
+participant WireMockAdapter
+participant WireMockDriver
+
+Gebruiker -> AuthController: GET /login\n{username, password}\n-> userAuthorization
+AuthController -> AuthService: authorizeUser(userAuthorization)
+AuthService -> WireMockAdapter: getRole(userAuthorization)
+WireMockAdapter -> WireMockDriver: loginResponse = login(userAuthorization)
+WireMockAdapter <- WireMockDriver: ❌ Not found Error
+AuthControllerExceptionHandler <- WireMockAdapter: throw new APICallException(ErrorObject)
+Gebruiker <- AuthControllerExceptionHandler: return new ResponseEntity(ErrorObject)
+
+@enduml
